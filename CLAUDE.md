@@ -13,7 +13,7 @@ Single-file sales deck for ORA / ORALAB, an AI creative platform for jewellery p
 
 1. Cover — "The AI creative platform for studio-quality product images and video."
 2. Great products deserve better visual velocity.
-3. From one raw photo to a full campaign, in minutes. (two-line headline at standard size; reduced side padding, chevrons float over the grid via `#subPrev`/`#subNext` absolute positioning; no footnote) — 4-page `.bap` sub-carousel; each page is one raw client tile, a `.split` divider (vertical rule + rose arrow), then 4 ORA output tiles. Page 1 uses bangle-raw, bangle-angled, bangle-wrist, bangle-golden, bangle-luxury. `bangle-petals.jpg` is unused (dropped when the row went from 5 outputs to 4 for bigger tiles) but kept in `assets/` as a spare.
+3. From one raw photo to a full campaign, in minutes. (two-line headline at standard size; reduced side padding, chevrons float over the grid via `#subPrev`/`#subNext` absolute positioning; no footnote) — 4-page `.bap` sub-carousel; each page is one raw client tile, a `.split` divider (vertical rule + rose arrow), then 4 ORA output tiles. Page 1 uses bangle-raw, bangle-angled, bangle-wrist, bangle-golden, bangle-luxury. Page 2 uses earring-raw, earring-studio, earring-ear, earring-jasmine, earring-stone. Pages 3 and 4 are placeholders awaiting the necklace and ring sets (client sent them 2026-08-11; files pending). `bangle-petals.jpg` is unused (dropped when the row went from 5 outputs to 4 for bigger tiles) but kept in `assets/` as a spare.
 4. AI generation is easy. Reliable production is not.
 5. We specialise in Jewellery.
 6. 5 steps from raw image to final campaign, powered by the ORA Agent.
