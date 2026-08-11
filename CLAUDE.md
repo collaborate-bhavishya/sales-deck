@@ -64,5 +64,5 @@ ffmpeg is not installed on this Mac (`brew install ffmpeg` first).
 
 ## Workflow
 
-- Commit and push to `main` after each meaningful change; Netlify redeploys the live link automatically.
+- Always auto commit and push to `main` after each meaningful change, without asking for confirmation; Netlify redeploys the live link automatically.
 - Remote is HTTPS with the macOS keychain credential helper; git user is `collaborate-bhavishya`.
