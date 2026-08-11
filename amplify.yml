@@ -3,11 +3,11 @@ frontend:
   phases:
     build:
       commands:
-        # Static site: nothing to compile. Drop internal docs from the published output.
-        - rm -f CLAUDE.md
+        # Static site: no compile. Assemble a clean output folder with just the deck.
+        - mkdir -p dist
+        - cp -r index.html assets dist/
   artifacts:
-    # Publish the repo root (index.html + assets/) exactly as-is.
-    baseDirectory: /
+    baseDirectory: dist
     files:
       - '**/*'
   cache:
