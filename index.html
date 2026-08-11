@@ -48,12 +48,12 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 .card p{color:rgba(255,255,255,.7);font-size:clamp(12.5px,1.1vw,15px);line-height:1.6}
 .card .mini{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;margin-bottom:10px;display:block;color:var(--rose)}
 /* "two ways to work" vertical cards */
-.wway{display:flex;flex-direction:column;min-height:clamp(300px,52vh,470px)}
-.wlogo{width:76px;height:76px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;flex:0 0 auto}
+.wway{display:flex;flex-direction:column}
+.wlogo{width:68px;height:68px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;flex:0 0 auto}
 .wtitle{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(24px,2.7vw,36px);font-weight:700;color:var(--ink);line-height:1.08;margin-bottom:6px}
-.wway .mini{margin-bottom:16px}
+.wway .mini{margin-bottom:14px}
 .wbody{color:rgba(255,255,255,.6);font-size:clamp(11px,0.95vw,13px);line-height:1.55;margin-bottom:10px}
-.wbody:last-child{margin-top:auto;margin-bottom:0;padding-top:10px}
+.wbody:last-child{margin-bottom:0;padding-top:4px}
 
 .media{border:1px dashed var(--border);border-radius:16px;background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,.4);text-align:center;padding:18px;min-height:110px}
 .media .micro{font-size:10px}
@@ -488,7 +488,7 @@ table.cmp{width:100%;border-collapse:collapse}
   <div class="blob" style="width:22vw;height:22vw;background:#C79BF0;opacity:.05;bottom:-7vw;right:24vw"></div>
   <span class="tag"><span class="dot"></span>09 · How we work</span>
   <h2 class="headline">Two ways to <em>work with us.</em></h2>
-  <div class="grow"><div class="cols c2">
+  <div class="grow" style="justify-content:center"><div class="cols c2" style="max-width:720px;margin:0 auto;gap:22px">
     <div class="card wway" style="background:#1E1216;border-color:#3A2029">
       <div class="wlogo" style="background:rgba(232,78,126,.12)">
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E84E7E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
