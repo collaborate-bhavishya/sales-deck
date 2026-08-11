@@ -8,6 +8,7 @@ Single-file sales deck for ORA / ORALAB, an AI creative platform for jewellery p
 
 - `index.html` — the whole deck: styles, 12 slide sections, carousel JS at the bottom
 - `assets/` — `bangle-*.jpg` (slide 3 sub-carousel) and client `.mp4` videos
+- `furniture.html` — a furniture-vertical variant of the deck (same ORALAB brand/team/platform, furniture copy). Built from `index.html` by `scratchpad/build_furniture.py`; served by the same Amplify app at `sales.oralab.ai/furniture.html`. It is **fully self-contained** (no `assets/` files — only the inline base64 cover logo) because every product-image/video slot is a labelled placeholder awaiting furniture content: slide 3 carousel (sofa/dining table/bed/accent chair pages, all `.stile empty`), slide 5 `.jstrip` (`.jtile empty`), slide 8 client logos (`[ Client logo ]`), slide 9 client work (`[ Client work ]`). Marketplaces on slide 7 are furniture ones (Amazon, Wayfair, IKEA, Houzz, Etsy, Walmart, Overstock, West Elm). To regenerate after editing `index.html`, re-run the build script (it copies index.html and re-applies all swaps).
 
 ## Slide map (12 `<section class="slide">` elements)
 
