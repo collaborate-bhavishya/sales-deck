@@ -1,0 +1,14 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        # Static site: nothing to compile. Drop internal docs from the published output.
+        - rm -f CLAUDE.md
+  artifacts:
+    # Publish the repo root (index.html + assets/) exactly as-is.
+    baseDirectory: /
+    files:
+      - '**/*'
+  cache:
+    paths: []
