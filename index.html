@@ -89,10 +89,12 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 .ptile.v2{background:radial-gradient(circle at 65% 30%,#191322,#0C0C0C)}
 .ptile.v3{background:radial-gradient(circle at 40% 70%,#121722,#101010)}
 .sub2 .ptile{height:min(55vh,520px)}
-.bagrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;width:100%}
-.stile{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--surface2);aspect-ratio:1/1}
+.bagrid{display:grid;grid-template-columns:1fr 26px repeat(4,1fr);gap:12px;width:100%}
+.split{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--rose)}
+.split::before,.split::after{content:"";flex:1;width:1px;background:var(--border)}
+.stile{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--surface2);aspect-ratio:4/4.6}
 .stile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.stile .lab{position:absolute;bottom:6px;left:10px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);background:rgba(9,9,9,.5);border-radius:999px;padding:3px 9px;backdrop-filter:blur(3px)}
+.stile .lab{position:absolute;top:8px;left:10px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);background:rgba(9,9,9,.5);border-radius:999px;padding:3px 9px;backdrop-filter:blur(3px)}
 .stile.rawtile{border-color:rgba(232,78,126,.4)}
 .stile.empty{display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);border-style:dashed}
 .chev{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:rgba(22,22,22,.8);color:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:.2s}
@@ -274,27 +276,17 @@ table.cmp{width:100%;border-collapse:collapse}
         <div class="bap on">
           <div class="bagrid">
             <div class="stile rawtile"><img src="assets/bangle-raw.jpg" alt="Raw client photo"><span class="lab" style="color:#fff;background:rgba(232,78,126,.85)">Raw · sent by client</span></div>
+            <div class="split"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
             <div class="stile"><img src="assets/bangle-angled.jpg" alt=""><span class="lab">Angled product view</span></div>
             <div class="stile"><img src="assets/bangle-wrist.jpg" alt=""><span class="lab">On-wrist lifestyle</span></div>
             <div class="stile"><img src="assets/bangle-golden.jpg" alt=""><span class="lab">Golden hour</span></div>
             <div class="stile"><img src="assets/bangle-luxury.jpg" alt=""><span class="lab">Signature luxury</span></div>
-            <div class="stile"><img src="assets/bangle-petals.jpg" alt=""><span class="lab">Rose petals & velvet</span></div>
           </div>
         </div>
         <div class="bap">
           <div class="bagrid">
             <div class="stile rawtile empty"><span class="micro">Raw · client photo</span></div>
-            <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
-            <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
-            <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
-            <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
-            <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
-          </div>
-        </div>
-        <div class="bap">
-          <div class="bagrid">
-            <div class="stile rawtile empty"><span class="micro">Raw · client photo</span></div>
-            <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
+            <div class="split"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
             <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
             <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
             <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
@@ -304,7 +296,17 @@ table.cmp{width:100%;border-collapse:collapse}
         <div class="bap">
           <div class="bagrid">
             <div class="stile rawtile empty"><span class="micro">Raw · client photo</span></div>
+            <div class="split"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
             <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
+            <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
+            <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
+            <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
+          </div>
+        </div>
+        <div class="bap">
+          <div class="bagrid">
+            <div class="stile rawtile empty"><span class="micro">Raw · client photo</span></div>
+            <div class="split"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
             <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
             <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
             <div class="stile empty"><span class="micro">[ ORA output ]</span></div>
