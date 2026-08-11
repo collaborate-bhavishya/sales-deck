@@ -1,6 +1,6 @@
 # ORALAB Client Deck
 
-Single-file sales deck for ORA / ORALAB, an AI creative platform for jewellery product images and video. The entire deck lives in `index.html` (inline CSS + markup + JS); media sits in `assets/`. GitHub repo: `collaborate-bhavishya/sales-deck`. Netlify deploys from `main`, so a push updates the live link.
+Single-file sales deck for ORA / ORALAB, an AI creative platform for jewellery product images and video. The entire deck lives in `index.html` (inline CSS + markup + JS); media sits in `assets/`. GitHub repo: `collaborate-bhavishya/sales-deck`. Hosted on AWS Amplify at `sales.oralab.ai`, deploying from `main` (build spec `amplify.yml`, static, no build step; it deletes `CLAUDE.md` from the published output). A push updates the live link. Netlify may also still be connected from the earlier setup and would redeploy too.
 
 > Note: the original CLAUDE.md from the first build session was lost. This file was reconstructed on 2026-08-11 from the deck source and the handoff summary. Items marked ⚠ could not be recovered and need confirming against the original conversation.
 
@@ -64,5 +64,5 @@ ffmpeg is not installed on this Mac (`brew install ffmpeg` first).
 
 ## Workflow
 
-- Always auto commit and push to `main` after each meaningful change, without asking for confirmation; Netlify redeploys the live link automatically.
+- Always auto commit and push to `main` after each meaningful change, without asking for confirmation; AWS Amplify (and Netlify, if still connected) redeploys the live link automatically.
 - Remote is HTTPS with the macOS keychain credential helper; git user is `collaborate-bhavishya`.
