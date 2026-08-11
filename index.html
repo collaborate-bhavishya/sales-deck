@@ -120,12 +120,10 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 .sub2 .ptile video{cursor:pointer}
 .sub2 .ptile.paused::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(9,9,9,.5);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(4px);z-index:3;pointer-events:none}
 .sub2 .ptile.paused::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-38%,-50%);border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent #fff;z-index:4;pointer-events:none}
-.bagrid{display:grid;grid-template-columns:1fr 26px repeat(4,1fr);gap:12px;width:100%}
-.split{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--rose)}
-.split::before,.split::after{content:"";flex:1;width:1px;background:var(--border)}
-.stile{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--surface2);aspect-ratio:4/4.6}
+.bagrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;width:100%}
+.stile{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--surface2);aspect-ratio:1/1}
 .stile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
-.stile .lab{position:absolute;top:8px;left:10px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);background:rgba(9,9,9,.5);border-radius:999px;padding:3px 9px;backdrop-filter:blur(3px)}
+.stile .lab{position:absolute;bottom:6px;left:10px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);background:rgba(9,9,9,.5);border-radius:999px;padding:3px 9px;backdrop-filter:blur(3px)}
 .stile.rawtile{border:2px solid var(--rose);box-shadow:0 0 0 1px rgba(232,78,126,.3),0 8px 26px rgba(232,78,126,.22)}
 .stile.empty{display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);border-style:dashed}
 /* fullscreen image lightbox */
@@ -144,10 +142,6 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 .chev{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:rgba(22,22,22,.8);color:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:.2s}
 .chev:hover{border-color:rgba(255,255,255,.4);color:#fff}
 .chev:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
-/* slide 3: chevrons float over the grid edges so tiles get full width */
-#subPrev,#subNext{position:absolute;top:50%;transform:translateY(-50%);z-index:3}
-#subPrev{left:-16px}
-#subNext{right:-16px}
 .subdots{display:flex;gap:6px;justify-content:center;margin-top:12px}
 .subdots i{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:.2s}
 .subdots i.on{background:var(--rose);transform:scale(1.3)}
@@ -307,7 +301,7 @@ table.cmp{width:100%;border-collapse:collapse}
 </section>
 
 <!-- 3 · BEFORE / AFTER (product carousel) -->
-<section class="slide" style="padding-left:min(4vw,48px);padding-right:min(4vw,48px)">
+<section class="slide">
   <div class="blob" style="width:24vw;height:24vw;background:#C79BF0;opacity:.05;bottom:-9vw;left:-7vw"></div>
   <span class="tag"><span class="dot"></span>02 · What we do</span>
   <h2 class="headline">With ORA AI, one raw photo becomes a full campaign <em>in minutes.</em></h2>
@@ -318,7 +312,6 @@ table.cmp{width:100%;border-collapse:collapse}
         <div class="bap on">
           <div class="bagrid">
             <div class="stile rawtile"><img src="assets/bangle-raw.jpg" alt="Raw client photo"><span class="lab" style="color:#fff;background:rgba(232,78,126,.85)">Raw · sent by client</span></div>
-            <div class="split"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
             <div class="stile"><img src="assets/bangle-angled.jpg" alt=""><span class="lab">Angled product view</span></div>
             <div class="stile"><img src="assets/bangle-wrist.jpg" alt=""><span class="lab">On-wrist lifestyle</span></div>
             <div class="stile"><img src="assets/bangle-golden.jpg" alt=""><span class="lab">Golden hour</span></div>
@@ -328,7 +321,6 @@ table.cmp{width:100%;border-collapse:collapse}
         <div class="bap">
           <div class="bagrid">
             <div class="stile rawtile"><img src="assets/earring-raw.jpg" alt="Raw client photo"><span class="lab" style="color:#fff;background:rgba(232,78,126,.85)">Raw · sent by client</span></div>
-            <div class="split"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
             <div class="stile"><img src="assets/earring-studio.jpg" alt=""><span class="lab">Studio product view</span></div>
             <div class="stile"><img src="assets/earring-ear.jpg" alt=""><span class="lab">On-ear lifestyle</span></div>
             <div class="stile"><img src="assets/earring-jasmine.jpg" alt=""><span class="lab">Jasmine &amp; silk</span></div>
@@ -338,7 +330,6 @@ table.cmp{width:100%;border-collapse:collapse}
         <div class="bap">
           <div class="bagrid">
             <div class="stile rawtile"><img src="assets/necklace-raw.jpg" alt="Raw client photo"><span class="lab" style="color:#fff;background:rgba(232,78,126,.85)">Raw · sent by client</span></div>
-            <div class="split"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
             <div class="stile"><img src="assets/necklace-neck.jpg" alt=""><span class="lab">On-neck close-up</span></div>
             <div class="stile"><img src="assets/necklace-resort.jpg" alt=""><span class="lab">Resort lifestyle</span></div>
             <div class="stile"><img src="assets/necklace-marble.jpg" alt=""><span class="lab">Wet stone editorial</span></div>
@@ -348,7 +339,6 @@ table.cmp{width:100%;border-collapse:collapse}
         <div class="bap">
           <div class="bagrid">
             <div class="stile rawtile"><img src="assets/ring-raw.jpg" alt="Raw client photo"><span class="lab" style="color:#fff;background:rgba(232,78,126,.85)">Raw · sent by client</span></div>
-            <div class="split"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
             <div class="stile"><img src="assets/ring-studio.jpg" alt=""><span class="lab">Studio product view</span></div>
             <div class="stile"><img src="assets/ring-hand.jpg" alt=""><span class="lab">On-hand lifestyle</span></div>
             <div class="stile"><img src="assets/ring-evening.jpg" alt=""><span class="lab">Evening occasion</span></div>
