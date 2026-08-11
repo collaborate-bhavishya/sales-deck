@@ -18,9 +18,9 @@ Single-file sales deck for ORA / ORALAB, an AI creative platform for jewellery p
 5. We specialise in Jewellery.
 6. 5 steps from raw image to final campaign, powered by the ORA Agent.
 7. One platform for all your creative needs. — plays `oralab-diamond.mp4`
-8. Global brands trust us for their most important visuals.
-9. Work ORA shipped for real brands. — 2-page `.sub2` client-work carousel: damas-campaign, jawhara-campaign, alliel-social, vbj-bridal, keemti-1 through keemti-4
-10. Bring us the brief, or bring your team.
+8. Global brands trust us for their most important visuals. — 5 client-logo cards (Damas, Jawhara, Alliel, Carat Story, VBJ) in a centered flex-wrap (3+2 rows) with enlarged logos; no footnote.
+9. Work ORA shipped for real brands. — 2-page `.sub2` client-work carousel: damas-campaign, jawhara-campaign, alliel-social, vbj-bridal, keemti-1 through keemti-4. Videos do NOT autoplay-all: `cvidSync()` pauses every `.sub2 video` and autoplays only the first tile of the active page, and only while this slide (`slides[8]`) is the active deck slide. Clicking a tile toggles play/pause; any video starting pauses all others (one at a time). Paused tiles show a `.paused` play-button overlay. `cvidSync()` is called from `show()` (on every slide change) and from `sub2Show()` (on carousel page change).
+10. Two ways to work with us. (was "Bring us the brief, or bring your team.") — two `.wway` vertical cards: ORA Studio (Managed Studio) and ORA Platform (Self-serve), each a big `.wlogo` mark + `.wtitle` over smaller `.wbody` copy with a bottom-anchored "Best for" line.
 11. Operators and researchers, not tourists in AI.
 12. Give ORA a few SKUs. See what comes back.
 
@@ -45,7 +45,7 @@ The main deck JS collects slides with `document.querySelectorAll('.slide')`. Pag
 
 Giving an inner page `class="slide"` silently adds it to the main deck's slide list and breaks the count, dots, and arrow navigation.
 
-Related trap: the ArrowUp/ArrowDown handlers hardcode parent-slide indices (`slides[2]` for the `.bap` carousel, `slides[8]` for `.sub2`). If slides are added, removed, or reordered, update those indices.
+Related trap: several places hardcode parent-slide indices: the ArrowUp/ArrowDown handlers (`slides[2]` for the `.bap` carousel, `slides[8]` for `.sub2`) and the slide 9 video autoplay guard in `cvidSync()` (`slides[8]`, the client-work slide). If slides are added, removed, or reordered, update every one of those indices.
 
 ## Video compression (ffmpeg)
 
