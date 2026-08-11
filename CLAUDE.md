@@ -22,7 +22,7 @@ Single-file sales deck for ORA / ORALAB, an AI creative platform for jewellery p
 9. Work ORA shipped for real brands. — 2-page `.sub2` client-work carousel: damas-campaign, jawhara-campaign, alliel-social, vbj-bridal, keemti-1 through keemti-4. Videos do NOT autoplay-all: `cvidSync()` pauses every `.sub2 video` and autoplays only the first tile of the active page, and only while this slide (`slides[8]`) is the active deck slide. Clicking a tile toggles play/pause; any video starting pauses all others (one at a time). Paused tiles show a `.paused` play-button overlay. `cvidSync()` is called from `show()` (on every slide change) and from `sub2Show()` (on carousel page change).
 10. Two ways to work with us. (was "Bring us the brief, or bring your team.") — two `.wway` vertical cards: ORA Studio (Managed Studio) and ORA Platform (Self-serve), each a big `.wlogo` mark + `.wtitle` over smaller `.wbody` copy with a bottom-anchored "Best for" line.
 11. Operators and researchers, not tourists in AI.
-12. Give ORA a few SKUs. See what comes back.
+12. Next steps. (closing) — two cards, "Try ORA Platform" (Take a live demo and trial access for you and your team) and "Try ORA Studio" (Share a few product photos and get finished, quality-checked imagery back), then a rose `.cta` "Platform Walkthrough" button, and a `.s12foot` footer pinned to the slide bottom with the website (oralab.ai) and email (hello@oralab.ai). The CTA href is a placeholder (`https://oralab.ai`) - point it at the real walkthrough URL when there is one. Note: `.s12foot` needs the `.slide .s12foot` selector so its `position:absolute` beats the deck's `.slide>*:not(.blob){position:relative}` rule.
 
 ## Style guide (hard rules)
 

@@ -54,6 +54,14 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 .wway .mini{margin-bottom:14px}
 .wbody{color:rgba(255,255,255,.6);font-size:clamp(11px,0.95vw,13px);line-height:1.55;margin-bottom:10px}
 .wbody:last-child{margin-bottom:0;padding-top:4px}
+/* slide 12 next-steps CTA + footer */
+.cta{display:inline-flex;align-items:center;gap:9px;background:var(--rose);color:#fff;font-weight:600;font-size:clamp(13px,1.2vw,15.5px);padding:13px 24px;border-radius:999px;text-decoration:none;border:1px solid var(--rose);transition:.2s}
+.cta:hover{filter:brightness(1.08)}
+.cta svg{width:17px;height:17px}
+.slide .s12foot{position:absolute;left:0;right:0;bottom:min(6vh,54px);display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:clamp(12px,1.05vw,14px);color:rgba(255,255,255,.6)}
+.s12foot a{color:var(--platinum);text-decoration:none}
+.s12foot a:hover{color:#fff}
+.s12foot .sep{opacity:.35}
 
 .media{border:1px dashed var(--border);border-radius:16px;background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,.4);text-align:center;padding:18px;min-height:110px}
 .media .micro{font-size:10px}
@@ -534,23 +542,25 @@ table.cmp{width:100%;border-collapse:collapse}
   <div class="blob" style="width:32vw;height:32vw;background:#F19AB0;opacity:.06;top:-10vw;right:-8vw"></div>
   <div class="blob" style="width:22vw;height:22vw;background:#8FB8F0;opacity:.05;bottom:-7vw;left:-5vw"></div>
   <span class="tag"><span class="dot"></span>11 · Start small, this week</span>
-  <h2 class="headline" style="max-width:28ch">Give ORA a few SKUs. <em>See what comes back.</em></h2>
-  <p class="sub">Let's make one campaign together. Keep the brief simple. Judge ORA on the quality of the final work.</p>
-  <div class="cols c2" style="margin-top:22px;max-width:820px">
+  <h2 class="headline">Next steps.</h2>
+  <div class="cols c2" style="margin-top:22px;max-width:760px;gap:20px">
     <div class="card" style="background:#1E1216;border-color:#3A2029">
-      <span class="mini">Try it yourself</span>
-      <h3>Get platform access</h3>
-      <p>A live demo of the ORA platform. Generate with your own products, on your own screen.</p>
+      <h3 style="font-size:clamp(18px,1.9vw,24px);margin-bottom:8px">Try ORA Platform</h3>
+      <p>Take a live demo and trial access for you and your team.</p>
     </div>
     <div class="card">
-      <span class="mini">Send us a few SKUs</span>
-      <h3>We deliver in 48 hours</h3>
-      <p>Share a few product photos. Get finished, quality-checked imagery back. No commitment.</p>
+      <h3 style="font-size:clamp(18px,1.9vw,24px);margin-bottom:8px">Try ORA Studio</h3>
+      <p>Share a few product photos and get finished, quality-checked imagery back.</p>
     </div>
   </div>
-  <div class="badges" style="margin-top:26px">
-    <span class="badge solid">hello@oralab.ai</span>
-    <span class="badge">oralab.ai</span>
+  <div style="margin-top:26px">
+    <a class="cta" href="https://oralab.ai" target="_blank" rel="noopener">Platform Walkthrough
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+  <div class="s12foot">
+    <a href="https://oralab.ai" target="_blank" rel="noopener">oralab.ai</a>
+    <span class="sep">·</span>
+    <a href="mailto:hello@oralab.ai">hello@oralab.ai</a>
   </div>
 </section>
 
