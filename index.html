@@ -69,7 +69,7 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 .media strong{font-size:14px;color:rgba(255,255,255,.85);font-weight:500}
 
 /* slide 5 specialisation image strip */
-.jstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:100%}
+.jstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:100%;max-width:680px;margin:0 auto}
 .jtile{border-radius:14px;overflow:hidden;border:1px solid var(--border);aspect-ratio:3/2;background:var(--surface2)}
 .jtile img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
 /* slide 7 logo collage */
@@ -655,7 +655,7 @@ document.addEventListener('keydown',e=>{
   if(slide3Active&&e.key==='ArrowDown'){e.preventDefault();subShow(si+1)}
   if(slide3Active&&e.key==='ArrowUp'){e.preventDefault();subShow(si-1)}
 });
-subShow(0);
+subShow(3);
 /* client work sub-carousel */
 const subs2=[...document.querySelectorAll('.sub2')];
 const sub2DotsEl=document.getElementById('sub2Dots');
