@@ -125,9 +125,10 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 /* comparison table */
 .cmpwrap{width:100%;overflow:auto;border-radius:20px;border:1px solid var(--border);background:var(--surface)}
 table.cmp{width:100%;border-collapse:collapse}
-.cmp th,.cmp td{padding:clamp(9px,1.2vh,14px) 14px;font-size:clamp(12px,1.1vw,14.5px);text-align:center;border-bottom:1px solid var(--border)}
+.cmp th,.cmp td{padding:clamp(9px,1.2vh,14px) 14px;font-size:clamp(12px,1.1vw,14.5px);text-align:left;border-bottom:1px solid var(--border)}
 .cmp tr:last-child td{border-bottom:none}
-.cmp th{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(13px,1.25vw,17px);font-weight:600}
+.cmp th{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(13px,1.25vw,17px);font-weight:600;color:var(--ink);background:rgba(255,255,255,.05)}
+.cmp tr:first-child th{border-bottom:1px solid var(--border)}
 .cmp td:first-child,.cmp th:first-child{text-align:left}
 .cmp td:first-child{font-weight:600;color:var(--ink)}
 .cmp td{color:rgba(255,255,255,.7)}
@@ -352,7 +353,6 @@ table.cmp{width:100%;border-collapse:collapse}
       <tr><td>Cost at scale</td><td class="part"><span class="mk a">~</span>Wasted retries</td><td class="no"><span class="mk r">✗</span>Retries + markup</td><td class="ora yes"><span class="mk g">✓</span>Right first time</td></tr>
     </table>
   </div></div>
-  <div class="footnote">7 in 10 raw-model generations change your product. Wrappers inherit the same failure.</div>
 </section>
 
 <!-- 4 · JEWELLERY SPECIALISATION -->
