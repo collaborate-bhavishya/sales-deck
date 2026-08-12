@@ -4,7 +4,7 @@ frontend:
     build:
       commands:
         # Static site: no compile. Create dist/ and copy just the deck into it.
-        - mkdir -p dist && cp -r index.html furniture.html assets dist/
+        - mkdir -p dist && cp -r index.html furniture assets dist/
   artifacts:
     baseDirectory: dist
     files:

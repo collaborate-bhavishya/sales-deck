@@ -72,10 +72,12 @@ src = src.replace('subShow(3);', 'subShow(0);')
 src = src.replace('<!-- 4 · JEWELLERY SPECIALISATION -->', '<!-- 4 · FURNITURE SPECIALISATION -->')
 src = src.replace('Jewellery', 'Furniture').replace('jewellery', 'furniture').replace('Jewelry', 'Furniture')
 
-open("/Users/bhavishyachaurasia/sales deck/furniture.html", "w").write(src)
+import os as _os
+_os.makedirs("/Users/bhavishyachaurasia/sales deck/furniture", exist_ok=True)
+open("/Users/bhavishyachaurasia/sales deck/furniture/index.html", "w").write(src)
 
 # --- Verify ---
-out = open("/Users/bhavishyachaurasia/sales deck/furniture.html").read()
+out = open("/Users/bhavishyachaurasia/sales deck/furniture/index.html").read()
 import re as _re
 leftovers = _re.findall(r'(?i)jewellery|jewelry|prong|bangle|earring|necklace|\bstone\b|damas|jawhara|alliel|keemti|\bvbj\b|carat story', out)
 asset_refs = _re.findall(r'src="assets/[^"]+"', out)

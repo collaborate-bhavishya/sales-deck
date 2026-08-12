@@ -1,4 +1,4 @@
-fp = "/Users/bhavishyachaurasia/sales deck/furniture.html"
+fp = "/Users/bhavishyachaurasia/sales deck/furniture/index.html"
 src = open(fp).read()
 
 # ---------- 1. New slide-3 markup: 2 pages (sofa, chair), raw hero + output stack ----------
@@ -7,7 +7,7 @@ def stack_imgs(cat, n):
     out = []
     for i in range(1, n + 1):
         c = cls.get(i, "fs")
-        out.append(f'              <img src="assets/furn-{cat}-{i:02d}.jpg" alt="" class="{c}">')
+        out.append(f'              <img src="/assets/furn-{cat}-{i:02d}.jpg" alt="" class="{c}">')
     return "\n".join(out)
 
 def page(cat, label, n, first):
@@ -15,7 +15,7 @@ def page(cat, label, n, first):
     return f'''        <div class="bap{on}">
           <div class="f3row f3page">
             <figure class="f3raw">
-              <img src="assets/furn-{cat}-raw.jpg" alt="Raw {label} photo, sent by client">
+              <img src="/assets/furn-{cat}-raw.jpg" alt="Raw {label} photo, sent by client">
               <figcaption><span class="cdot"></span>Raw &middot; sent by client</figcaption>
             </figure>
             <div class="f3arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
