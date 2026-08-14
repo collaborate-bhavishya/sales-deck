@@ -72,6 +72,15 @@ src = src.replace('subShow(3);', 'subShow(0);')
 src = src.replace('<!-- 4 · JEWELLERY SPECIALISATION -->', '<!-- 4 · FURNITURE SPECIALISATION -->')
 src = src.replace('Jewellery', 'Furniture').replace('jewellery', 'furniture').replace('Jewelry', 'Furniture')
 
+# --- Remove the client-work / video slide (no furniture videos yet) ---
+a = src.index('<!-- CLIENT WORK -->')
+b = src.index('<!-- 10 · HOW WE WORK -->')
+src = src[:a] + src[b:]
+# and its carousel JS (subs2 / sub2Show / cvidSync / video handlers) so nothing references the removed elements
+ja = src.index('/* client work sub-carousel */')
+jb = src.index('sub2Show(0);', ja) + len('sub2Show(0);')
+src = src[:ja] + src[jb:]
+
 import os as _os
 _os.makedirs("/Users/bhavishyachaurasia/sales deck/furniture", exist_ok=True)
 open("/Users/bhavishyachaurasia/sales deck/furniture/index.html", "w").write(src)
