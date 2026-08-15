@@ -54,7 +54,7 @@ css = '''/* slide 3 furniture: raw hero + clickable output stack */
 .f3stack:hover .c3{transform:rotate(8deg) translateX(8%)}
 .f3badge{position:absolute;z-index:6;top:10px;right:10px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(9,9,9,.62);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:5px 11px;backdrop-filter:blur(3px)}
 .f3hint{position:absolute;z-index:6;bottom:12px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;pointer-events:none;text-shadow:0 1px 6px rgba(0,0,0,.7)}
-@media (max-width:760px){.f3raw img,.f3stack{height:38vh}.f3arrow{display:none}}
+@media (max-width:820px){.f3row{flex-direction:column;align-items:stretch;gap:12px}.f3raw,.f3stack{flex:none;max-width:none;width:100%}.f3raw img,.f3stack{height:32vh}.f3arrow{display:none}}
 '''
 src = src.replace('/* slide 5 specialisation image strip */', css + '/* slide 5 specialisation image strip */')
 
