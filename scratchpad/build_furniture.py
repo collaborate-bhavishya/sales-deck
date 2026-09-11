@@ -59,7 +59,7 @@ for old, new in [('Flipkart','Wayfair'), ('Myntra','IKEA'), ('Nykaa','Houzz'),
 # (name, logo path or None). Ammri / Living Concept / Hive / Chattels are generic or
 # had no cleanly-extractable official logo, so they stay as wordmarks until files arrive.
 brands = [("Hive", None), ("SmaartCraaft", "/assets/furn-logo-smaartcraaft.png"),
-          ("Ammri", None), ("Living Concept", None), ("Chattels &amp; More", None)]
+          ("Ammri", None), ("Living Concept", None), ("Chattels &amp; More", "/assets/furn-logo-chattels.svg")]
 def brand_card(name, logo):
     inner = (f'<img src="{logo}" alt="{name}" style="max-height:72px;max-width:82%;width:auto;object-fit:contain;display:block">'
              if logo else
