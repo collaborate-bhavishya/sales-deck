@@ -20,7 +20,7 @@ src = src.replace('src="assets/shoot-jewellery.jpg" alt="Traditional studio phot
 # (key, label, video count, raw_photo_ready)
 FASH = [
     ("dress",  "Dress",          1, True),
-    ("print",  "Printed shirt",  5, False),  # raw mannequin photo pending
+    ("print",  "Printed shirt",  5, True),
     ("stripe", "Striped shirt",  3, True),
     ("jacket", "Leather jacket", 1, True),
 ]

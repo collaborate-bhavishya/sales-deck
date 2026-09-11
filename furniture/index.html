@@ -167,7 +167,7 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 /* client-work video lightbox */
 .vlightbox{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;background:rgba(6,6,6,.95);backdrop-filter:blur(6px);padding:4vmin}
 .vlightbox.on{display:flex;animation:lbfade .25s ease both}
-.vlightbox video{max-width:min(94vw,720px);max-height:88vh;border-radius:14px;box-shadow:0 30px 90px rgba(0,0,0,.6);background:#000}
+.vlightbox video,.vlightbox img#vlbImg{max-width:min(94vw,720px);max-height:88vh;border-radius:14px;box-shadow:0 30px 90px rgba(0,0,0,.6);background:#000}
 .chev{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:rgba(22,22,22,.8);color:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:.2s}
 .chev:hover{border-color:rgba(255,255,255,.4);color:#fff}
 .chev:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
@@ -643,6 +643,7 @@ table.cmp{width:100%;border-collapse:collapse}
 <div class="vlightbox" id="vlb" role="dialog" aria-modal="true" aria-label="Video player">
   <button class="lbbtn lbnav lbprev" id="vlbPrev" aria-label="Previous video"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
   <video id="vlbVid" controls playsinline></video>
+  <img id="vlbImg" alt="" hidden>
   <button class="lbbtn lbnav lbnext" id="vlbNext" aria-label="Next video"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
   <button class="lbbtn lbclose" id="vlbClose" aria-label="Close video"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="lbcap" id="vlbCap"></div>
@@ -708,17 +709,22 @@ subShow(0);
    list of sources; kept above the sub2 block so build_fashion.py can strip the
    client-work carousel without losing the player. */
 function cvidSync(){ document.querySelectorAll('.sub2 video').forEach(v=>v.pause()); }
-const vlb=document.getElementById('vlb'), vlbVid=document.getElementById('vlbVid'), vlbCap=document.getElementById('vlbCap');
+const vlb=document.getElementById('vlb'), vlbVid=document.getElementById('vlbVid'), vlbImg=document.getElementById('vlbImg'), vlbCap=document.getElementById('vlbCap');
 let vGroup=[], vIdx=0;
 function vlbRender(){
   const v=vGroup[vIdx]; if(!v)return;
-  vlbVid.src=v.src;
+  if(v.type==='image'){
+    vlbVid.pause(); vlbVid.removeAttribute('src'); vlbVid.load(); vlbVid.hidden=true;
+    vlbImg.src=v.src; vlbImg.hidden=false;
+  } else {
+    vlbImg.removeAttribute('src'); vlbImg.hidden=true;
+    vlbVid.hidden=false; vlbVid.src=v.src; const p=vlbVid.play(); if(p)p.catch(()=>{});
+  }
   vlbCap.textContent=v.cap||'';
-  const p=vlbVid.play(); if(p)p.catch(()=>{});
 }
 function vlbOpenGroup(group,i){ vGroup=group||[]; if(!vGroup.length)return; vIdx=(i+vGroup.length)%vGroup.length; vlb.classList.add('on'); vlbRender(); }
 function vlbStep(d){ if(!vGroup.length)return; vIdx=(vIdx+d+vGroup.length)%vGroup.length; vlbRender(); }
-function vlbClose(){ vlb.classList.remove('on'); vlbVid.pause(); vlbVid.removeAttribute('src'); vlbVid.load(); }
+function vlbClose(){ vlb.classList.remove('on'); vlbVid.pause(); vlbVid.removeAttribute('src'); vlbVid.load(); vlbImg.removeAttribute('src'); }
 document.getElementById('vlbClose').addEventListener('click',vlbClose);
 document.getElementById('vlbPrev').addEventListener('click',e=>{e.stopPropagation();vlbStep(-1)});
 document.getElementById('vlbNext').addEventListener('click',e=>{e.stopPropagation();vlbStep(1)});
@@ -773,7 +779,18 @@ function lbRender(){
   lbCap.textContent=lab?lab.textContent:'';
 }
 function lbStep(d){lbIdx=(lbIdx+d+lbGroup.length)%lbGroup.length;lbRender();}
+/* build a mixed image+video group for a fashion slide-3 row: raw photo first, then its ORA videos */
+function f3Group(row){
+  const g=[]; const raw=row.querySelector('.f3raw img');
+  const posters=[...row.querySelectorAll('.f3stack [data-vsrc]')];
+  const label=posters.length?(posters[0].getAttribute('data-vcap')||''):'';
+  if(raw) g.push({src:raw.getAttribute('src'), cap:(label?label+' · ':'')+'Raw', type:'image'});
+  posters.forEach(el=>g.push({src:el.getAttribute('data-vsrc'), cap:el.getAttribute('data-vcap')||'', type:'video'}));
+  return g;
+}
 function lbOpen(img){
+  const frow=img.closest('.f3row');
+  if(frow && frow.querySelector('.f3stack [data-vsrc]')){ vlbOpenGroup(f3Group(frow),0); return; }  // fashion raw -> video player at the raw
   const grid=img.closest('.bagrid')||img.closest('.jstrip')||img.closest('.f3page');
   lbGroup=grid?[...grid.querySelectorAll('img')]:[img];
   lbIdx=Math.max(0,lbGroup.indexOf(img));
@@ -783,8 +800,12 @@ function lbOpen(img){
 function lbClose(){lb.classList.remove('on');lbImg.removeAttribute('src');}
 document.querySelectorAll('.stile img, .jtile img, .f3raw img').forEach(img=>img.addEventListener('click',()=>lbOpen(img)));
 document.querySelectorAll('.f3stack').forEach(st=>st.addEventListener('click',()=>{
-  const vids=[...st.querySelectorAll('[data-vsrc]')];
-  if(vids.length){vlbOpenGroup(vids.map(el=>({src:el.getAttribute('data-vsrc'),cap:el.getAttribute('data-vcap')||''})),0);return;}
+  if(st.querySelector('[data-vsrc]')){                 // video stack: open player, raw included in the cycle
+    const g=f3Group(st.closest('.f3row'));
+    const fv=g.findIndex(x=>x.type==='video');
+    vlbOpenGroup(g, fv<0?0:fv);
+    return;
+  }
   const t=st.querySelector('.c1')||st.querySelector('img');if(t)lbOpen(t);
 }));
 document.getElementById('lbClose').addEventListener('click',lbClose);
