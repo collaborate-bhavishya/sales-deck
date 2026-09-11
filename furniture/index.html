@@ -334,26 +334,53 @@ table.cmp{width:100%;border-collapse:collapse}
   <span class="tag"><span class="dot"></span>01 · The problem</span>
   <h2 class="headline">Traditional production can be beautiful, <em>but slow, expensive and tedious.</em></h2>
   <p class="sub">Every new campaign means another shoot to plan, budget and wait on before a single image goes live.</p>
-  <div class="grow"><div class="cols c5">
-    <div class="icard">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E84E7E" stroke-width="2"><path d="M12 2v20M17 6.5c0-2-2.2-3-5-3s-5 1-5 3 2 3 5 3 5 1 5 3-2.2 3-5 3-5-1-5-3"/></svg></div>
-      <h3>Costly shoots</h3><p>Studio, models, props and retouching, paid again for every refresh.</p>
+  <div class="grow"><div class="cols c2" style="gap:clamp(16px,2.6vw,36px);align-items:stretch">
+    <div class="card" style="border-top:3px solid var(--rose);display:flex;flex-direction:column;gap:14px;justify-content:center">
+      <span class="mini">The traditional way</span>
+      <div style="border-radius:14px;overflow:hidden;background:var(--surface2);border:1px solid var(--border);padding:6px">
+        <svg viewBox="0 0 460 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+          <defs><radialGradient id="shootGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F19AB0" stop-opacity=".22"/><stop offset="1" stop-color="#F19AB0" stop-opacity="0"/></radialGradient></defs>
+          <path d="M50 46 H410 V172 Q410 210 372 210 H50 Z" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.09)" stroke-width="1.5"/>
+          <line x1="34" y1="210" x2="426" y2="210" stroke="rgba(255,255,255,.14)" stroke-width="1.5"/>
+          <ellipse cx="170" cy="150" rx="130" ry="95" fill="url(#shootGlow)"/>
+          <g stroke="#D8D8D2" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+            <rect x="52" y="60" width="66" height="92" rx="8" fill="rgba(245,211,138,.10)" transform="rotate(10 85 106)"/>
+            <line x1="86" y1="150" x2="86" y2="210"/><path d="M66 210 L86 180 L106 210"/>
+          </g>
+          <g stroke="#E84E7E" stroke-width="1.6" stroke-dasharray="3 6" stroke-linecap="round" opacity=".85">
+            <line x1="122" y1="110" x2="215" y2="165"/><line x1="122" y1="130" x2="215" y2="178"/><line x1="122" y1="150" x2="215" y2="191"/>
+          </g>
+          <g stroke="#D8D8D2" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+            <rect x="196" y="178" width="58" height="32" rx="4" fill="rgba(255,255,255,.05)"/>
+            <path d="M216 178 v-20 M234 178 v-20"/><circle cx="225" cy="150" r="12" fill="rgba(232,78,126,.20)"/>
+          </g>
+          <g stroke="#D8D8D2" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+            <rect x="316" y="120" width="72" height="46" rx="7" fill="rgba(255,255,255,.05)"/>
+            <rect x="330" y="110" width="22" height="12" rx="3"/>
+            <circle cx="340" cy="143" r="14"/><circle cx="340" cy="143" r="6.5" stroke="#E84E7E"/>
+            <line x1="360" y1="166" x2="360" y2="210"/><path d="M340 210 L360 176 L380 210"/>
+          </g>
+        </svg>
+      </div>
+      <p style="margin:0">Studio, lights, models and a camera crew, booked and paid for every single shoot.</p>
     </div>
-    <div class="icard">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E84E7E" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2.5"/></svg></div>
-      <h3>Weeks of waiting</h3><p>Brief to delivery takes 2 to 3 weeks. Campaign moments pass by.</p>
-    </div>
-    <div class="icard">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E84E7E" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></div>
-      <h3>Reshoot cycles</h3><p>One wrong angle or light means the whole loop starts again.</p>
-    </div>
-    <div class="icard">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E84E7E" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg></div>
-      <h3>Every format, again</h3><p>Marketplace, social, ads and website all demand different images.</p>
-    </div>
-    <div class="icard">
-      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E84E7E" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
-      <h3>Heavy logistics</h3><p>Coordinating studios, models and agencies is a project in itself.</p>
+    <div class="cols c2" style="gap:clamp(12px,1.4vw,18px)">
+      <div class="icard">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E84E7E" stroke-width="2"><path d="M12 2v20M17 6.5c0-2-2.2-3-5-3s-5 1-5 3 2 3 5 3 5 1 5 3-2.2 3-5 3-5-1-5-3"/></svg></div>
+        <h3>Costly shoots</h3><p>Studio, models, props and retouching, paid again for every refresh.</p>
+      </div>
+      <div class="icard">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E84E7E" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2.5"/></svg></div>
+        <h3>Weeks of waiting</h3><p>Brief to delivery takes 2 to 3 weeks. Campaign moments pass by.</p>
+      </div>
+      <div class="icard">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E84E7E" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg></div>
+        <h3>Reshoot cycles</h3><p>One wrong angle or light means the whole loop starts again.</p>
+      </div>
+      <div class="icard">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E84E7E" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+        <h3>Heavy logistics</h3><p>Coordinating studios, models and agencies is a project in itself.</p>
+      </div>
     </div>
   </div></div>
 </section>
