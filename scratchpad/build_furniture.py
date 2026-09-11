@@ -51,10 +51,17 @@ for old, new in [('Flipkart','Wayfair'), ('Myntra','IKEA'), ('Nykaa','Houzz'),
                  ('Noon','Overstock'), ('Farfetch','West Elm')]:
     src = src.replace(f'<div class="lgt"><span>{old}</span></div>', f'<div class="lgt"><span>{new}</span></div>')
 
-# --- Slide 8: client logos -> placeholders, drop region badges ---
-src = re.sub(r'<img src="data:image/png;base64,[^"]*" alt="[^"]*" style="max-height:[^"]*">',
-             '<span class="micro" style="color:rgba(255,255,255,.4)">[ Client logo ]</span>', src)
-src = re.sub(r'<span class="badge" style="font-size:10px;padding:5px 12px">[^<]*</span>', '', src)
+# --- Slide 8: client brands (text wordmarks; swap in real logos when available) ---
+brands = ["Hive", "SmaartCraaft", "Ammri", "Living Concept", "Chattels &amp; More"]
+def brand_card(name):
+    return ('    <div class="card" style="text-align:center;padding:16px;flex:0 1 calc(33.333% - 16px);max-width:440px">\n'
+            '      <div style="min-height:130px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:var(--surface2);border:1px solid var(--border);padding:16px">'
+            f'<span style="font-family:\'Bricolage Grotesque\',sans-serif;font-size:clamp(16px,1.9vw,24px);font-weight:600;color:rgba(255,255,255,.9)">{name}</span></div>\n'
+            '    </div>')
+_ot = '<div class="cols" style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px">'
+_i0 = src.index(_ot) + len(_ot)
+_i1 = src.index('\n  </div></div>\n</section>', _i0)
+src = src[:_i0] + '\n' + '\n'.join(brand_card(b) for b in brands) + src[_i1:]
 
 # --- Slide 9: client-work videos -> placeholders (line-based) ---
 lines = src.split('\n')
