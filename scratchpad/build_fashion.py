@@ -5,6 +5,10 @@ src = open("/Users/bhavishyachaurasia/sales deck/index.html").read()
 # --- Title ---
 src = src.replace("<title>ORALAB Client Deck", "<title>ORALAB Fashion Deck")
 
+# --- Slide 2: traditional-shoot photo (fashion; absolute /assets/ so it loads under /fashion/) ---
+src = src.replace('src="assets/shoot-jewellery.jpg" alt="Traditional studio photoshoot"',
+                  'src="/assets/shoot-fashion.jpg" alt="Traditional fashion photoshoot"')
+
 # --- Slide 3: product carousel -> fashion placeholders ---
 # Output tiles (16): image -> empty
 src = re.sub(
