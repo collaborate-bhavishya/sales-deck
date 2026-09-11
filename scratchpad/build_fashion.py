@@ -131,8 +131,10 @@ src = src.replace('subShow(3);', 'subShow(0);')
 src = src.replace('Jewellery', 'Fashion').replace('jewellery', 'fashion').replace('Jewelry', 'Fashion')
 
 # --- Remove the client-work / video slide (no fashion videos yet) ---
+# (It now sits right after slide 3, so remove ONLY its own <section>, not the
+#  range up to "How we work" which would delete the middle of the deck.)
 a = src.index('<!-- CLIENT WORK -->')
-b = src.index('<!-- 10 · HOW WE WORK -->')
+b = src.index('</section>', a) + len('</section>')
 src = src[:a] + src[b:]
 # and its carousel JS (subs2 / sub2Show / cvidSync / video handlers)
 ja = src.index('/* client work sub-carousel */')
