@@ -55,6 +55,14 @@ ja = src.index('/* client work sub-carousel */')
 jb = src.index('sub2Show(0);', ja) + len('sub2Show(0);')
 src = src[:ja] + src[jb:]
 
+# --- Cover: simple (no fashion product images yet; swap to a wall once they exist) ---
+import sys as _sys
+_sys.path.insert(0, "/Users/bhavishyachaurasia/sales deck/scratchpad")
+import cover_lib as _cl
+_logo = re.search(r'src="(data:image/png;base64,[^"]+)" alt="ORALAB"', src).group(1)
+_a = src.index('<!-- 1 · COVER -->'); _b = src.index('<!-- 2 · PROBLEM -->')
+src = src[:_a] + '<!-- 1 · COVER -->\n' + _cl.simple_cover(_logo) + '\n\n' + src[_b:]
+
 os.makedirs("/Users/bhavishyachaurasia/sales deck/fashion", exist_ok=True)
 open("/Users/bhavishyachaurasia/sales deck/fashion/index.html", "w").write(src)
 

@@ -87,6 +87,14 @@ src = src.replace('Jewellery', 'Furniture').replace('jewellery', 'furniture').re
 # NOTE: the client-work video slide is KEPT (furniture brand videos above); its
 # .sub2 / cvidSync JS stays intact and slides[7] correctly targets it.
 
+# --- Cover: furniture media wall (own renders, absolute /assets/ paths) ---
+import sys as _sys
+_sys.path.insert(0, "/Users/bhavishyachaurasia/sales deck/scratchpad")
+import cover_lib as _cl
+_logo = re.search(r'src="(data:image/png;base64,[^"]+)" alt="ORALAB"', src).group(1)
+_a = src.index('<!-- 1 · COVER -->'); _b = src.index('<!-- 2 · PROBLEM -->')
+src = src[:_a] + '<!-- 1 · COVER -->\n' + _cl.wall_cover(_logo, _cl.FURN_COLS, '/assets/') + '\n\n' + src[_b:]
+
 import os as _os
 _os.makedirs("/Users/bhavishyachaurasia/sales deck/furniture", exist_ok=True)
 open("/Users/bhavishyachaurasia/sales deck/furniture/index.html", "w").write(src)

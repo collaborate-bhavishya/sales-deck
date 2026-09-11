@@ -1,2 +1,5 @@
 .DS_Store
 .claude/settings.local.json
+
+# temp cover-concept previews (not for deploy)
+_cover_*.html
