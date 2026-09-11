@@ -77,3 +77,10 @@ FURN_COLS = [
     [("furn-chair-05",False),("furn-sofa-06",True),("furn-chair-07",False),("furn-sofa-08",False)],
     [("furn-sofa-raw",False),("furn-chair-raw",False),("furn-sofa-01",False),("furn-chair-02",False)],
 ]
+FASH_COLS = [
+    [("fash-velvet-studio",False),("fash-print-1",True),("fash-velvet-lifestyle",False),("fash-dress-1",True)],
+    [("fash-stripe-1",True),("fash-velvet-editorial",False),("fash-jacket-1",True),("fash-velvet-product",False)],
+    [("fash-print-2",True),("fash-velvet-studio",False),("fash-stripe-2",True),("fash-print-5",True)],
+    [("fash-velvet-lifestyle",False),("fash-print-3",True),("fash-velvet-editorial",False),("fash-stripe-3",True)],
+    [("fash-jacket-1",True),("fash-print-4",True),("fash-velvet-product",False),("fash-dress-1",True)],
+]
