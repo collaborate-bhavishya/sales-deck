@@ -55,17 +55,23 @@ for old, new in [('Flipkart','Wayfair'), ('Myntra','IKEA'), ('Nykaa','Houzz'),
                  ('Noon','Overstock'), ('Farfetch','West Elm')]:
     src = src.replace(f'<div class="lgt"><span>{old}</span></div>', f'<div class="lgt"><span>{new}</span></div>')
 
-# --- Slide 8: client brands (text wordmarks; swap in real logos when available) ---
-brands = ["Hive", "SmaartCraaft", "Ammri", "Living Concept", "Chattels &amp; More"]
-def brand_card(name):
+# --- Slide 8: client brands (real logos where sourced from official sites; wordmark otherwise) ---
+# (name, logo path or None). Ammri / Living Concept / Hive / Chattels are generic or
+# had no cleanly-extractable official logo, so they stay as wordmarks until files arrive.
+brands = [("Hive", None), ("SmaartCraaft", "/assets/furn-logo-smaartcraaft.png"),
+          ("Ammri", None), ("Living Concept", None), ("Chattels &amp; More", None)]
+def brand_card(name, logo):
+    inner = (f'<img src="{logo}" alt="{name}" style="max-height:72px;max-width:82%;width:auto;object-fit:contain;display:block">'
+             if logo else
+             f'<span style="font-family:\'Bricolage Grotesque\',sans-serif;font-size:clamp(16px,1.9vw,24px);font-weight:600;color:#1a1a1a">{name}</span>')
     return ('    <div class="card" style="text-align:center;padding:16px;flex:0 1 calc(33.333% - 16px);max-width:440px">\n'
-            '      <div style="min-height:130px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:var(--surface2);border:1px solid var(--border);padding:16px">'
-            f'<span style="font-family:\'Bricolage Grotesque\',sans-serif;font-size:clamp(16px,1.9vw,24px);font-weight:600;color:rgba(255,255,255,.9)">{name}</span></div>\n'
+            '      <div style="min-height:130px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:#F4F4F1;border:1px solid var(--border);padding:16px">'
+            f'{inner}</div>\n'
             '    </div>')
 _ot = '<div class="cols" style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px">'
 _i0 = src.index(_ot) + len(_ot)
 _i1 = src.index('\n  </div></div>\n</section>', _i0)
-src = src[:_i0] + '\n' + '\n'.join(brand_card(b) for b in brands) + src[_i1:]
+src = src[:_i0] + '\n' + '\n'.join(brand_card(n, l) for n, l in brands) + src[_i1:]
 
 # --- Slide 9: client-work videos -> 8 furniture brand videos (absolute /assets/ paths) ---
 def fvtile(n, lab):

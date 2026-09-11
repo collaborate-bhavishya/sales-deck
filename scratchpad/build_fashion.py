@@ -107,17 +107,22 @@ src = src.replace(
 for old, new in [('Flipkart','Ajio'), ('Etsy','ASOS'), ('Walmart','Zalando'), ('Noon','Shein')]:
     src = src.replace(f'<div class="lgt"><span>{old}</span></div>', f'<div class="lgt"><span>{new}</span></div>')
 
-# --- Slide 8: client brands (text wordmarks; swap in real logos when available) ---
-brands = ["Kameez", "Shaurya Sanadhya", "Cotton Culture"]
-def brand_card(name):
+# --- Slide 8: client brands (real logos where sourced from official sites; wordmark otherwise) ---
+# (name, logo path or None). Kameez is a generic name (many brands), so it stays a wordmark.
+brands = [("Kameez", None), ("Shaurya Sanadhya", "/assets/fash-logo-shaurya.png"),
+          ("Cotton Culture", "/assets/fash-logo-cottonculture.jpg")]
+def brand_card(name, logo):
+    inner = (f'<img src="{logo}" alt="{name}" style="max-height:72px;max-width:82%;width:auto;object-fit:contain;display:block">'
+             if logo else
+             f'<span style="font-family:\'Bricolage Grotesque\',sans-serif;font-size:clamp(16px,1.9vw,24px);font-weight:600;color:#1a1a1a">{name}</span>')
     return ('    <div class="card" style="text-align:center;padding:16px;flex:0 1 calc(33.333% - 16px);max-width:440px">\n'
-            '      <div style="min-height:130px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:var(--surface2);border:1px solid var(--border);padding:16px">'
-            f'<span style="font-family:\'Bricolage Grotesque\',sans-serif;font-size:clamp(16px,1.9vw,24px);font-weight:600;color:rgba(255,255,255,.9)">{name}</span></div>\n'
+            '      <div style="min-height:130px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:#F4F4F1;border:1px solid var(--border);padding:16px">'
+            f'{inner}</div>\n'
             '    </div>')
 _ot = '<div class="cols" style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px">'
 _i0 = src.index(_ot) + len(_ot)
 _i1 = src.index('\n  </div></div>\n</section>', _i0)
-src = src[:_i0] + '\n' + '\n'.join(brand_card(b) for b in brands) + src[_i1:]
+src = src[:_i0] + '\n' + '\n'.join(brand_card(n, l) for n, l in brands) + src[_i1:]
 
 # --- JS: carousel defaults to first page ---
 src = src.replace('subShow(3);', 'subShow(0);')
