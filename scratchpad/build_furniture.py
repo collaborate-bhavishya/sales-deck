@@ -63,13 +63,18 @@ _i0 = src.index(_ot) + len(_ot)
 _i1 = src.index('\n  </div></div>\n</section>', _i0)
 src = src[:_i0] + '\n' + '\n'.join(brand_card(b) for b in brands) + src[_i1:]
 
-# --- Slide 9: client-work videos -> placeholders (line-based) ---
+# --- Slide 9: client-work videos -> 8 furniture brand videos (absolute /assets/ paths) ---
+def fvtile(n, lab):
+    return (f'<div class="ptile" style="background:#000"><video src="/assets/furn-work-{n}.mp4" '
+            f'muted loop playsinline preload="metadata"></video><span class="lab">{lab}</span></div>')
+p1 = '          <div class="prow">' + ''.join(fvtile(n, l) for n, l in [(1,'Product film'),(2,'Campaign'),(3,'Motion'),(4,'Ad film')]) + '</div>'
+p2 = '          <div class="prow">' + ''.join(fvtile(n, l) for n, l in [(5,'Concept'),(6,'Interior'),(7,'Lifestyle'),(8,'Studio')]) + '</div>'
 lines = src.split('\n')
-ptile = '<div class="ptile" style="background:#101010"><span class="micro" style="color:rgba(255,255,255,.4)">[ Client work ]</span></div>'
-prow = '          <div class="prow">' + ptile * 4 + '</div>'
 for i, l in enumerate(lines):
-    if 'class="prow"' in l and ('damas-campaign.mp4' in l or 'keemti-1.mp4' in l):
-        lines[i] = prow
+    if 'class="prow"' in l and 'damas-campaign.mp4' in l:
+        lines[i] = p1
+    elif 'class="prow"' in l and 'keemti-1.mp4' in l:
+        lines[i] = p2
 src = '\n'.join(lines)
 
 # --- JS: carousel defaults to first page (no ring) ---
@@ -79,14 +84,8 @@ src = src.replace('subShow(3);', 'subShow(0);')
 src = src.replace('<!-- 4 · JEWELLERY SPECIALISATION -->', '<!-- 4 · FURNITURE SPECIALISATION -->')
 src = src.replace('Jewellery', 'Furniture').replace('jewellery', 'furniture').replace('Jewelry', 'Furniture')
 
-# --- Remove the client-work / video slide (no furniture videos yet) ---
-a = src.index('<!-- CLIENT WORK -->')
-b = src.index('<!-- 10 · HOW WE WORK -->')
-src = src[:a] + src[b:]
-# and its carousel JS (subs2 / sub2Show / cvidSync / video handlers) so nothing references the removed elements
-ja = src.index('/* client work sub-carousel */')
-jb = src.index('sub2Show(0);', ja) + len('sub2Show(0);')
-src = src[:ja] + src[jb:]
+# NOTE: the client-work video slide is KEPT (furniture brand videos above); its
+# .sub2 / cvidSync JS stays intact and slides[7] correctly targets it.
 
 import os as _os
 _os.makedirs("/Users/bhavishyachaurasia/sales deck/furniture", exist_ok=True)
