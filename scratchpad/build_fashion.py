@@ -9,26 +9,65 @@ src = src.replace("<title>ORALAB Client Deck", "<title>ORALAB Fashion Deck")
 src = src.replace('src="assets/shoot-jewellery.jpg" alt="Traditional studio photoshoot"',
                   'src="/assets/shoot-fashion.jpg" alt="Traditional fashion photoshoot"')
 
-# --- Slide 3: fashion placeholders in the raw-hero + output-stack layout ---
-# index.html now uses the f3row/f3raw/f3stack layout for slide 3 (jewellery
-# images). Fashion has no product images yet, so overwrite the subviews with
-# placeholder pages that reuse the inherited f3 CSS but carry no image srcs
-# (dashed boxes) so the deck stays fully self-contained under /fashion/.
-FCATS = ["dress", "handbag", "footwear", "outerwear"]
-def fpage(label, first):
+# --- Slide 3: fashion = raw client photo + AI-video output stack ---
+# Same raw-hero layout as the other decks (f3 CSS + lightbox wiring inherited
+# from index.html), but the outputs are AI VIDEOS: the stack shows poster
+# frames carrying data-vsrc/data-vcap, and the shared .f3stack handler opens
+# the fullscreen #vlb player cycling that category's videos. The row has NO
+# .f3page class, so clicking the raw photo just zooms the raw in #lightbox.
+# All srcs are root-absolute /assets/ so they load under /fashion/.
+# (key, label, video count)
+# (key, label, video count, raw_photo_ready)
+FASH = [
+    ("dress",  "Dress",          1, True),
+    ("print",  "Printed shirt",  5, False),  # raw mannequin photo pending
+    ("stripe", "Striped shirt",  3, True),
+    ("jacket", "Leather jacket", 1, True),
+]
+_PLAY = ('<span aria-hidden="true" style="position:absolute;z-index:6;top:50%;left:50%;'
+         'transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;'
+         'background:rgba(232,78,126,.92);display:flex;align-items:center;justify-content:center;'
+         'box-shadow:0 10px 30px rgba(0,0,0,.5);pointer-events:none">'
+         '<span style="border-style:solid;border-width:10px 0 10px 17px;'
+         'border-color:transparent transparent transparent #fff;margin-left:4px"></span></span>')
+
+def vstack(key, label, n):
+    cls = {1: "fs c1", 2: "fs c2", 3: "fs c3"}
+    out = []
+    for i in range(1, n + 1):
+        c = cls.get(i, "fs")
+        out.append(f'              <img src="/assets/fash-{key}-{i}.jpg" data-vsrc="/assets/fash-{key}-{i}.mp4" data-vcap="{label}" alt="" class="{c}">')
+    return "\n".join(out)
+
+def raw_block(key, label, ready):
+    if ready:
+        return (f'            <figure class="f3raw">\n'
+                f'              <img src="/assets/fash-{key}-raw.jpg" alt="Raw {label} photo, sent by client">\n'
+                f'              <figcaption><span class="cdot"></span>Raw &middot; sent by client</figcaption>\n'
+                f'            </figure>')
+    # raw photo not supplied yet: honest dashed placeholder (no misleading stand-in)
+    return (f'            <div class="f3raw" style="border-style:dashed;box-shadow:none;display:flex;'
+            f'align-items:center;justify-content:center;text-align:center;padding:16px">'
+            f'<span style="color:rgba(255,255,255,.5);letter-spacing:.12em;text-transform:uppercase;'
+            f'font-size:11px;line-height:1.8">Raw {label}<br>photo coming</span></div>')
+
+def fpage(key, label, n, ready, first):
     on = " on" if first else ""
+    s = "" if n == 1 else "s"
     return f'''        <div class="bap{on}">
-          <div class="f3row f3page">
-            <div class="f3raw" style="border-style:dashed;box-shadow:none;display:flex;align-items:center;justify-content:center;height:min(56vh,480px)">
-              <span style="color:rgba(255,255,255,.45);letter-spacing:.12em;text-transform:uppercase;font-size:11px">Raw &middot; {label} photo</span>
-            </div>
+          <div class="f3row f3tall">
+{raw_block(key, label, ready)}
             <div class="f3arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-            <div class="f3stack" style="border:1px dashed var(--border);border-radius:16px;display:flex;align-items:center;justify-content:center">
-              <span style="color:rgba(255,255,255,.35);letter-spacing:.12em;text-transform:uppercase;font-size:11px">ORA outputs &middot; coming soon</span>
-            </div>
+            <button type="button" class="f3stack" aria-label="Play {n} ORA video{s} of this {label}">
+{vstack(key, label, n)}
+              {_PLAY}
+              <span class="f3badge">{n} ORA video{s}</span>
+              <span class="f3hint">Click to play</span>
+            </button>
           </div>
         </div>'''
-_f3new = "\n".join(fpage(c, i == 0) for i, c in enumerate(FCATS))
+
+_f3new = "\n".join(fpage(k, l, n, r, i == 0) for i, (k, l, n, r) in enumerate(FASH))
 _f3i0 = src.index('<div class="subviews">') + len('<div class="subviews">')
 _f3close = '\n      </div>\n      <button class="chev" id="subNext"'
 _f3i1 = src.index(_f3close, _f3i0)
