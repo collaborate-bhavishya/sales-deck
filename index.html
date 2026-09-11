@@ -140,6 +140,10 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 .lbprev{left:20px}.lbnext{right:20px}
 .lbcap{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.7)}
 @media (max-width:640px){.lbnav{width:40px;height:40px}.lbprev{left:8px}.lbnext{right:8px}}
+/* client-work video lightbox */
+.vlightbox{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;background:rgba(6,6,6,.95);backdrop-filter:blur(6px);padding:4vmin}
+.vlightbox.on{display:flex;animation:lbfade .25s ease both}
+.vlightbox video{max-width:min(94vw,720px);max-height:88vh;border-radius:14px;box-shadow:0 30px 90px rgba(0,0,0,.6);background:#000}
 .chev{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:rgba(22,22,22,.8);color:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto;transition:.2s}
 .chev:hover{border-color:rgba(255,255,255,.4);color:#fff}
 .chev:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
@@ -638,6 +642,15 @@ table.cmp{width:100%;border-collapse:collapse}
   <div class="lbcap" id="lbCap"></div>
 </div>
 
+<!-- client-work video lightbox -->
+<div class="vlightbox" id="vlb" role="dialog" aria-modal="true" aria-label="Video player">
+  <button class="lbbtn lbnav lbprev" id="vlbPrev" aria-label="Previous video"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <video id="vlbVid" controls playsinline></video>
+  <button class="lbbtn lbnav lbnext" id="vlbNext" aria-label="Next video"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+  <button class="lbbtn lbclose" id="vlbClose" aria-label="Close video"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="lbcap" id="vlbCap"></div>
+</div>
+
 <script>
 const deck = document.getElementById('deck');
 const slides = [...document.querySelectorAll('.slide')];
@@ -704,22 +717,40 @@ function sub2Show(n){
   [...sub2DotsEl.children].forEach((d,idx)=>d.classList.toggle('on',idx===s2i));
   cvidSync();
 }
-/* slide 9 client videos: autoplay first, click to play, one at a time */
-function cvidSync(){
-  document.querySelectorAll('.sub2 video').forEach(v=>v.pause());
-  const cw=document.querySelectorAll('.slide')[7];
-  if(!cw||!cw.classList.contains('active'))return;   // only autoplay when the client-work slide is visible
-  const active=document.querySelector('.sub2.on');
-  const first=active&&active.querySelector('video');
-  if(first){const p=first.play();if(p)p.catch(()=>{});}
-}
-document.querySelectorAll('.sub2 video').forEach(v=>{
-  const tile=v.closest('.ptile');
-  v.addEventListener('click',()=>{v.paused?v.play():v.pause();});
-  v.addEventListener('play',()=>{document.querySelectorAll('.sub2 video').forEach(o=>{if(o!==v)o.pause();});tile&&tile.classList.remove('paused');});
-  v.addEventListener('pause',()=>{tile&&tile.classList.add('paused');});
-  if(tile&&v.paused)tile.classList.add('paused');
+/* slide 9 client videos: paused thumbnails; click opens the fullscreen player */
+function cvidSync(){ document.querySelectorAll('.sub2 video').forEach(v=>v.pause()); }
+[...document.querySelectorAll('.sub2 .ptile')].forEach(tile=>{
+  tile.classList.add('paused');
+  tile.style.cursor='pointer';
+  tile.addEventListener('click',()=>{
+    const all=[...document.querySelectorAll('.sub2 video')];
+    const gi=all.indexOf(tile.querySelector('video'));
+    if(gi>=0)vlbOpen(gi);
+  });
 });
+/* fullscreen video player: click a tile to open, prev/next to move, Esc to close */
+const vlb=document.getElementById('vlb'), vlbVid=document.getElementById('vlbVid'), vlbCap=document.getElementById('vlbCap');
+let vGroup=[], vIdx=0;
+function vlbRender(){
+  const v=vGroup[vIdx]; if(!v)return;
+  vlbVid.src=v.getAttribute('src');
+  const ct=v.parentElement.querySelector('.ctag'), lab=v.parentElement.querySelector('.lab');
+  vlbCap.textContent=[ct&&ct.textContent, lab&&lab.textContent].filter(Boolean).join(' · ');
+  const p=vlbVid.play(); if(p)p.catch(()=>{});
+}
+function vlbOpen(i){ vGroup=[...document.querySelectorAll('.sub2 video')]; if(!vGroup.length)return; vIdx=(i+vGroup.length)%vGroup.length; vlb.classList.add('on'); vlbRender(); }
+function vlbStep(d){ if(!vGroup.length)return; vIdx=(vIdx+d+vGroup.length)%vGroup.length; vlbRender(); }
+function vlbClose(){ vlb.classList.remove('on'); vlbVid.pause(); vlbVid.removeAttribute('src'); vlbVid.load(); }
+document.getElementById('vlbClose').addEventListener('click',vlbClose);
+document.getElementById('vlbPrev').addEventListener('click',e=>{e.stopPropagation();vlbStep(-1)});
+document.getElementById('vlbNext').addEventListener('click',e=>{e.stopPropagation();vlbStep(1)});
+vlb.addEventListener('click',e=>{if(e.target===vlb)vlbClose()});
+document.addEventListener('keydown',e=>{
+  if(!vlb.classList.contains('on'))return;
+  if(e.key==='Escape'){vlbClose();e.stopPropagation();}
+  else if(e.key==='ArrowRight'){vlbStep(1);e.stopPropagation();e.preventDefault();}
+  else if(e.key==='ArrowLeft'){vlbStep(-1);e.stopPropagation();e.preventDefault();}
+},true);
 document.getElementById('sub2Prev').addEventListener('click',()=>sub2Show(s2i-1));
 document.getElementById('sub2Next').addEventListener('click',()=>sub2Show(s2i+1));
 document.addEventListener('keydown',e=>{

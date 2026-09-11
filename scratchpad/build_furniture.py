@@ -67,8 +67,8 @@ src = src[:_i0] + '\n' + '\n'.join(brand_card(b) for b in brands) + src[_i1:]
 def fvtile(n, lab):
     return (f'<div class="ptile" style="background:#000"><video src="/assets/furn-work-{n}.mp4" '
             f'muted loop playsinline preload="metadata"></video><span class="lab">{lab}</span></div>')
-p1 = '          <div class="prow">' + ''.join(fvtile(n, l) for n, l in [(1,'Product film'),(2,'Campaign'),(3,'Motion'),(4,'Ad film')]) + '</div>'
-p2 = '          <div class="prow">' + ''.join(fvtile(n, l) for n, l in [(5,'Concept'),(6,'Interior'),(7,'Lifestyle'),(8,'Studio')]) + '</div>'
+p1 = '          <div class="prow">' + ''.join(fvtile(n, l) for n, l in [(1,'Product film'),(2,'Campaign'),(4,'Ad film'),(5,'Concept')]) + '</div>'
+p2 = '          <div class="prow">' + ''.join(fvtile(n, l) for n, l in [(6,'Interior'),(7,'Lifestyle'),(8,'Studio')]) + '</div>'
 lines = src.split('\n')
 for i, l in enumerate(lines):
     if 'class="prow"' in l and 'damas-campaign.mp4' in l:
