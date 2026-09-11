@@ -73,6 +73,30 @@ _f3close = '\n      </div>\n      <button class="chev" id="subNext"'
 _f3i1 = src.index(_f3close, _f3i0)
 src = src[:_f3i0] + "\n" + _f3new + src[_f3i1:]
 
+# --- New slide after slide 3: "sketch to finished product" gallery (fashion only) ---
+_go = lambda key, cap: (f'        <figure class="fgo"><img src="/assets/fash-velvet-{key}.jpg" alt="{cap} render">'
+                        f'<figcaption>{cap}</figcaption></figure>')
+_sketch_slide = '''
+<!-- SKETCH TO FINISHED (fashion) -->
+<section class="slide">
+  <div class="blob" style="width:24vw;height:24vw;background:#C79BF0;opacity:.05;top:-9vw;right:-7vw"></div>
+  <span class="tag"><span class="dot"></span>Every format</span>
+  <h2 class="headline">From sketch to finished product, <em>all with ORA AI in minutes.</em></h2>
+  <p class="sub">One tech sketch becomes product, studio, editorial and lifestyle imagery.</p>
+  <div class="grow">
+    <div class="fgal">
+      <div class="fgsketch"><img src="/assets/fash-velvet-sketch.jpg" alt="Technical sketch of the dress"><figcaption>Tech sketch</figcaption></div>
+      <div class="fgarrow"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="fggrid">
+''' + "\n".join([_go("product", "Product"), _go("studio", "Studio"), _go("editorial", "Editorial"), _go("lifestyle", "Lifestyle"), _go("details", "Details")]) + '''
+      </div>
+    </div>
+  </div>
+</section>'''
+# insert right after slide 3's </section>
+_s3end = src.index('</section>', src.index('id="subNext"')) + len('</section>')
+src = src[:_s3end] + "\n" + _sketch_slide + src[_s3end:]
+
 # --- Slide 6: analyse-product copy ---
 src = src.replace(
     'Vision models read product geometry: stones, settings, textures and material properties.',

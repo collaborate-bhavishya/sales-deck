@@ -92,6 +92,17 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 .f3tall .f3raw,.f3tall .f3stack{flex:0 0 auto;width:auto;max-width:none;aspect-ratio:9/16;height:min(60vh,520px)}
 .f3tall .f3raw img{height:100%;width:100%}
 @media (max-width:820px){.f3row{flex-direction:column;align-items:stretch;gap:12px}.f3raw,.f3stack{flex:none;max-width:none;width:100%}.f3raw img,.f3stack{height:32vh}.f3arrow{display:none}.f3tall .f3raw,.f3tall .f3stack{aspect-ratio:auto;width:100%;height:52vh}.f3tall .f3raw img{height:100%}}
+/* fashion 'sketch to finished' gallery: sketch hero + grid of finished renders */
+.fgal{display:flex;gap:clamp(16px,2.6vw,44px);align-items:center;justify-content:center;width:100%}
+.fgsketch{flex:0 0 auto;display:flex;flex-direction:column;gap:9px;align-items:center}
+.fgsketch img{height:min(46vh,360px);width:auto;aspect-ratio:1/1;object-fit:contain;background:#EAEAEA;border:2px solid var(--rose);border-radius:16px;padding:6px;cursor:zoom-in;display:block}
+.fgsketch figcaption{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--rose)}
+.fgarrow{flex:0 0 auto;color:var(--rose);display:flex;align-items:center}
+.fggrid{display:flex;flex-wrap:wrap;gap:clamp(7px,.8vw,12px);justify-content:center;max-width:min(40vw,450px);flex:0 1 auto}
+.fgo{flex:0 0 calc(33.333% - 8px);display:flex;flex-direction:column;gap:5px;align-items:center;margin:0}
+.fgo img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:1px solid var(--border);background:var(--surface2);cursor:zoom-in;display:block}
+.fgo figcaption{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+@media (max-width:820px){.fgal{flex-direction:column;gap:16px}.fgsketch img{height:36vh}.fgarrow{transform:rotate(90deg)}.fggrid{max-width:none}.fgo{flex-basis:calc(50% - 8px)}}
 /* slide 5 specialisation image strip */
 .jstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:100%}
 .jtile{border-radius:14px;overflow:hidden;border:1px solid var(--border);aspect-ratio:3/2;background:var(--surface2)}
@@ -451,6 +462,27 @@ table.cmp{width:100%;border-collapse:collapse}
   </div>
 </section>
 
+<!-- SKETCH TO FINISHED (fashion) -->
+<section class="slide">
+  <div class="blob" style="width:24vw;height:24vw;background:#C79BF0;opacity:.05;top:-9vw;right:-7vw"></div>
+  <span class="tag"><span class="dot"></span>Every format</span>
+  <h2 class="headline">From sketch to finished product, <em>all with ORA AI in minutes.</em></h2>
+  <p class="sub">One tech sketch becomes product, studio, editorial and lifestyle imagery.</p>
+  <div class="grow">
+    <div class="fgal">
+      <div class="fgsketch"><img src="/assets/fash-velvet-sketch.jpg" alt="Technical sketch of the dress"><figcaption>Tech sketch</figcaption></div>
+      <div class="fgarrow"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="fggrid">
+        <figure class="fgo"><img src="/assets/fash-velvet-product.jpg" alt="Product render"><figcaption>Product</figcaption></figure>
+        <figure class="fgo"><img src="/assets/fash-velvet-studio.jpg" alt="Studio render"><figcaption>Studio</figcaption></figure>
+        <figure class="fgo"><img src="/assets/fash-velvet-editorial.jpg" alt="Editorial render"><figcaption>Editorial</figcaption></figure>
+        <figure class="fgo"><img src="/assets/fash-velvet-lifestyle.jpg" alt="Lifestyle render"><figcaption>Lifestyle</figcaption></figure>
+        <figure class="fgo"><img src="/assets/fash-velvet-details.jpg" alt="Details render"><figcaption>Details</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 5 · COMPARISON -->
 <section class="slide">
   <div class="blob" style="width:22vw;height:22vw;background:#8FB8F0;opacity:.05;bottom:-8vw;right:-6vw"></div>
@@ -757,14 +789,14 @@ function f3Group(row){
 function lbOpen(img){
   const frow=img.closest('.f3row');
   if(frow && frow.querySelector('.f3stack [data-vsrc]')){ vlbOpenGroup(f3Group(frow),0); return; }  // fashion raw -> video player at the raw
-  const grid=img.closest('.bagrid')||img.closest('.jstrip')||img.closest('.f3page');
+  const grid=img.closest('.bagrid')||img.closest('.jstrip')||img.closest('.f3page')||img.closest('.fgal');
   lbGroup=grid?[...grid.querySelectorAll('img')]:[img];
   lbIdx=Math.max(0,lbGroup.indexOf(img));
   lbRender();
   lb.classList.add('on');
 }
 function lbClose(){lb.classList.remove('on');lbImg.removeAttribute('src');}
-document.querySelectorAll('.stile img, .jtile img, .f3raw img').forEach(img=>img.addEventListener('click',()=>lbOpen(img)));
+document.querySelectorAll('.stile img, .jtile img, .f3raw img, .fgal img').forEach(img=>img.addEventListener('click',()=>lbOpen(img)));
 document.querySelectorAll('.f3stack').forEach(st=>st.addEventListener('click',()=>{
   if(st.querySelector('[data-vsrc]')){                 // video stack: open player, raw included in the cycle
     const g=f3Group(st.closest('.f3row'));
