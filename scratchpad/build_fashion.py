@@ -9,18 +9,30 @@ src = src.replace("<title>ORALAB Client Deck", "<title>ORALAB Fashion Deck")
 src = src.replace('src="assets/shoot-jewellery.jpg" alt="Traditional studio photoshoot"',
                   'src="/assets/shoot-fashion.jpg" alt="Traditional fashion photoshoot"')
 
-# --- Slide 3: product carousel -> fashion placeholders ---
-# Output tiles (16): image -> empty
-src = re.sub(
-    r'<div class="stile"><img src="assets/[a-z0-9-]+\.jpg" alt=""><span class="lab">[^<]*</span></div>',
-    '<div class="stile empty"><span class="micro">[ ORA output ]</span></div>', src)
-# Raw tiles (4): image -> empty, per-page category hint
-cats = iter(["dress", "handbag", "footwear", "outerwear"])
-def raw_repl(m):
-    return f'<div class="stile rawtile empty"><span class="micro">Raw · {next(cats)} photo</span></div>'
-src = re.sub(
-    r'<div class="stile rawtile"><img src="assets/[a-z0-9-]+-raw\.jpg" alt="Raw client photo"><span class="lab"[^>]*>Raw · sent by client</span></div>',
-    raw_repl, src)
+# --- Slide 3: fashion placeholders in the raw-hero + output-stack layout ---
+# index.html now uses the f3row/f3raw/f3stack layout for slide 3 (jewellery
+# images). Fashion has no product images yet, so overwrite the subviews with
+# placeholder pages that reuse the inherited f3 CSS but carry no image srcs
+# (dashed boxes) so the deck stays fully self-contained under /fashion/.
+FCATS = ["dress", "handbag", "footwear", "outerwear"]
+def fpage(label, first):
+    on = " on" if first else ""
+    return f'''        <div class="bap{on}">
+          <div class="f3row f3page">
+            <div class="f3raw" style="border-style:dashed;box-shadow:none;display:flex;align-items:center;justify-content:center;height:min(56vh,480px)">
+              <span style="color:rgba(255,255,255,.45);letter-spacing:.12em;text-transform:uppercase;font-size:11px">Raw &middot; {label} photo</span>
+            </div>
+            <div class="f3arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="f3stack" style="border:1px dashed var(--border);border-radius:16px;display:flex;align-items:center;justify-content:center">
+              <span style="color:rgba(255,255,255,.35);letter-spacing:.12em;text-transform:uppercase;font-size:11px">ORA outputs &middot; coming soon</span>
+            </div>
+          </div>
+        </div>'''
+_f3new = "\n".join(fpage(c, i == 0) for i, c in enumerate(FCATS))
+_f3i0 = src.index('<div class="subviews">') + len('<div class="subviews">')
+_f3close = '\n      </div>\n      <button class="chev" id="subNext"'
+_f3i1 = src.index(_f3close, _f3i0)
+src = src[:_f3i0] + "\n" + _f3new + src[_f3i1:]
 
 # --- Slide 6: analyse-product copy ---
 src = src.replace(
