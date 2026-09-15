@@ -73,6 +73,12 @@ _f3close = '\n      </div>\n      <button class="chev" id="subNext"'
 _f3i1 = src.index(_f3close, _f3i0)
 src = src[:_f3i0] + "\n" + _f3new + src[_f3i1:]
 
+# --- Fashion 'What we do' (video) slide: small "Image to video" sub label.
+#     Done here while the heading is still unique (the raw->images slide below reuses it). ---
+src = src.replace(
+    '<h2 class="headline">One raw photo becomes a full campaign <em>in minutes.</em></h2>',
+    '<h2 class="headline">One raw photo becomes a full campaign <em>in minutes.</em></h2>\n  <p class="sub">Image to video</p>', 1)
+
 # --- New slide after slide 3: "sketch to finished product" gallery (fashion only) ---
 _go = lambda key, cap: (f'        <figure class="fgo"><img src="/assets/fash-velvet-{key}.jpg" alt="{cap} render">'
                         f'<figcaption>{cap}</figcaption></figure>')
@@ -127,8 +133,7 @@ _raw_slide = '''
 <section class="slide">
   <div class="blob" style="width:24vw;height:24vw;background:#8FB8F0;opacity:.05;bottom:-8vw;left:-6vw"></div>
   <span class="tag"><span class="dot"></span>Raw to finished</span>
-  <h2 class="headline">Raw product shots to finished campaigns, <em>in minutes.</em></h2>
-  <p class="sub">Flat lays, fabric and product photos turned into on-model campaign imagery.</p>
+  <h2 class="headline">One raw photo becomes a full campaign <em>in minutes.</em></h2>
   <div class="grow" style="flex-direction:column;justify-content:center">
     <div class="subwrap">
       <button class="chev" id="rawPrev" aria-label="Previous product"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
@@ -140,8 +145,10 @@ _raw_slide = '''
     <div class="subdots" id="rawDots"></div>
   </div>
 </section>'''
-_skend = src.index('</section>', src.index('<!-- SKETCH TO FINISHED (fashion) -->')) + len('</section>')
-src = src[:_skend] + "\n" + _raw_slide + src[_skend:]
+# place the raw->images slide BEFORE the video ("What we do") slide, so the
+# showcase order is: raw->images, raw->videos, sketch->finished
+_vidstart = src.index('<!-- 3 · BEFORE / AFTER (product carousel) -->')
+src = src[:_vidstart] + _raw_slide.lstrip("\n") + "\n\n" + src[_vidstart:]
 
 # --- Slide 6: analyse-product copy ---
 src = src.replace(
