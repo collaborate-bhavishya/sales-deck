@@ -34,8 +34,10 @@ def page(cat, label, n, first):
 
 new_pages = "\n".join([
     page("sofa", "sofa", 8, True),
+    page("chair", "chair", 8, False),
     page("bed", "bed", 8, False),
     page("tvunit", "TV unit", 8, False),
+    page("sofa2", "sofa", 8, False),
 ])
 
 # Replace everything inside slide-3 .subviews (the 4 placeholder .bap pages) with the 2 new pages
