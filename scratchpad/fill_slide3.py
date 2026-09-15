@@ -32,7 +32,11 @@ def page(cat, label, n, first):
           </div>
         </div>'''
 
-new_pages = page("sofa", "sofa", 8, True) + "\n" + page("chair", "chair", 8, False)
+new_pages = "\n".join([
+    page("sofa", "sofa", 8, True),
+    page("bed", "bed", 8, False),
+    page("tvunit", "TV unit", 8, False),
+])
 
 # Replace everything inside slide-3 .subviews (the 4 placeholder .bap pages) with the 2 new pages
 i0 = src.index('<div class="subviews">') + len('<div class="subviews">')

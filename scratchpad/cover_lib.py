@@ -71,11 +71,11 @@ JEWEL_COLS = [
     [("earring-stone",False),("spec-rings",True),("bangle-luxury",False),("ring-studio",False)],
 ]
 FURN_COLS = [
-    [("furn-sofa-01",True),("furn-chair-02",False),("furn-sofa-03",False),("furn-chair-04",True)],
-    [("furn-chair-01",False),("furn-sofa-02",True),("furn-chair-03",False),("furn-sofa-04",False)],
-    [("furn-sofa-05",True),("furn-chair-06",False),("furn-sofa-07",False),("furn-chair-08",True)],
-    [("furn-chair-05",False),("furn-sofa-06",True),("furn-chair-07",False),("furn-sofa-08",False)],
-    [("furn-sofa-raw",False),("furn-chair-raw",False),("furn-sofa-01",False),("furn-chair-02",False)],
+    [("furn-sofa-02",False),("furn-bed-02",False),("furn-tvunit-02",False),("furn-sofa-04",False)],
+    [("furn-bed-04",False),("furn-tvunit-04",False),("furn-sofa-06",False),("furn-bed-06",False)],
+    [("furn-tvunit-06",False),("furn-sofa-07",False),("furn-bed-07",False),("furn-tvunit-07",False)],
+    [("furn-sofa-01",False),("furn-bed-02",False),("furn-tvunit-01",False),("furn-sofa-04",False)],
+    [("furn-bed-01",False),("furn-tvunit-06",False),("furn-sofa-06",False),("furn-bed-04",False)],
 ]
 FASH_COLS = [
     [("fash-velvet-studio",False),("fash-print-1",True),("fash-velvet-lifestyle",False),("fash-dress-1",True)],
