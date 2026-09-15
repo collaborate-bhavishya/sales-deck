@@ -97,6 +97,52 @@ _sketch_slide = '''
 _s3end = src.index('</section>', src.index('id="subNext"')) + len('</section>')
 src = src[:_s3end] + "\n" + _sketch_slide + src[_s3end:]
 
+# --- New slide after the sketch slide: raw product -> finished images carousel (fashion only) ---
+# Uses its OWN carousel (.rap pages + #rawPrev/#rawNext/#rawDots + rawShow() JS in index.html),
+# independent of the .bap product carousel. Each page is the f3tall raw-hero + image-output stack
+# (no data-vsrc, so the shared .f3stack handler opens the image #lightbox cycling raw + outputs).
+RAW2FIN = [("saree", "Saree", 6), ("suit", "Suit", 6), ("fabric", "Fabric to suit", 5), ("shirt", "Shirt", 5)]
+def rstack(cat, n):
+    cls = {1: "fs c1", 2: "fs c2", 3: "fs c3"}
+    return "\n".join(f'              <img src="/assets/fash-out-{cat}-{i}.jpg" alt="" class="{cls.get(i, "fs")}">' for i in range(1, n + 1))
+def rpage(cat, label, n, first):
+    on = " on" if first else ""
+    return f'''        <div class="rap{on}">
+          <div class="f3row f3tall f3page">
+            <figure class="f3raw">
+              <img src="/assets/fash-raw-{cat}.jpg" alt="Raw {label}, sent by client">
+              <figcaption><span class="cdot"></span>Raw &middot; sent by client</figcaption>
+            </figure>
+            <div class="f3arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <button type="button" class="f3stack" aria-label="View {n} ORA images of this {label}">
+{rstack(cat, n)}
+              <span class="f3badge">{n} ORA images</span>
+              <span class="f3hint">Click to view all</span>
+            </button>
+          </div>
+        </div>'''
+_raps = "\n".join(rpage(c, l, n, i == 0) for i, (c, l, n) in enumerate(RAW2FIN))
+_raw_slide = '''
+<!-- RAW TO FINISHED (fashion) -->
+<section class="slide">
+  <div class="blob" style="width:24vw;height:24vw;background:#8FB8F0;opacity:.05;bottom:-8vw;left:-6vw"></div>
+  <span class="tag"><span class="dot"></span>Raw to finished</span>
+  <h2 class="headline">From a raw product shot to a finished campaign, <em>with ORA AI in minutes.</em></h2>
+  <p class="sub">Flat lays, fabric and product photos turned into on-model campaign imagery.</p>
+  <div class="grow" style="flex-direction:column;justify-content:center">
+    <div class="subwrap">
+      <button class="chev" id="rawPrev" aria-label="Previous product"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <div class="subviews">
+''' + _raps + '''
+      </div>
+      <button class="chev" id="rawNext" aria-label="Next product"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+    <div class="subdots" id="rawDots"></div>
+  </div>
+</section>'''
+_skend = src.index('</section>', src.index('<!-- SKETCH TO FINISHED (fashion) -->')) + len('</section>')
+src = src[:_skend] + "\n" + _raw_slide + src[_skend:]
+
 # --- Slide 6: analyse-product copy ---
 src = src.replace(
     'Vision models read product geometry: stones, settings, textures and material properties.',

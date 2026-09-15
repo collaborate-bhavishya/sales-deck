@@ -136,8 +136,8 @@ h2.headline em{font-style:normal;font-weight:700;color:var(--ink)}
 /* slide 3 product sub-carousel */
 .subwrap{position:relative;width:100%;display:flex;align-items:center;gap:10px}
 .subviews{flex:1;position:relative;min-width:0}
-.bap,.sub2{display:none;flex-direction:column;gap:14px}
-.bap.on,.sub2.on{display:flex;animation:rise .35s ease both}
+.bap,.sub2,.rap{display:none;flex-direction:column;gap:14px}
+.bap.on,.sub2.on,.rap.on{display:flex;animation:rise .35s ease both}
 .bap .plabel,.sub2 .plabel{display:flex;align-items:center;justify-content:space-between}
 .bap .pname,.sub2 .pname{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(16px,1.7vw,22px)}
 .bap .pcount,.sub2 .pcount{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4)}
@@ -747,6 +747,23 @@ document.addEventListener('keydown',e=>{
   if(slide3Active&&e.key==='ArrowUp'){e.preventDefault();subShow(si-1)}
 });
 subShow(3);
+/* fashion 'raw to finished' carousel (independent of .bap; inert where no .rap exists) */
+const raps=[...document.querySelectorAll('.rap')];
+if(raps.length){
+  const rawDotsEl=document.getElementById('rawDots'); let rawi=0;
+  const rawShow=n=>{rawi=(n+raps.length)%raps.length;raps.forEach((s,idx)=>s.classList.toggle('on',idx===rawi));[...rawDotsEl.children].forEach((d,idx)=>d.classList.toggle('on',idx===rawi));};
+  raps.forEach((s,idx)=>{const d=document.createElement('i');d.addEventListener('click',()=>rawShow(idx));rawDotsEl.appendChild(d)});
+  const rp=document.getElementById('rawPrev'),rn=document.getElementById('rawNext');
+  if(rp)rp.addEventListener('click',()=>rawShow(rawi-1));
+  if(rn)rn.addEventListener('click',()=>rawShow(rawi+1));
+  const rawSlide=raps[0].closest('.slide');
+  document.addEventListener('keydown',e=>{
+    if(!deck.classList.contains('open')||!rawSlide.classList.contains('active'))return;
+    if(e.key==='ArrowDown'){e.preventDefault();rawShow(rawi+1)}
+    if(e.key==='ArrowUp'){e.preventDefault();rawShow(rawi-1)}
+  });
+  rawShow(0);
+}
 /* fullscreen video player (shared: client-work slide + fashion slide 3). vGroup
    holds {src,cap} objects so it can be driven from real <video> tiles OR from a
    list of sources; kept above the sub2 block so build_fashion.py can strip the
