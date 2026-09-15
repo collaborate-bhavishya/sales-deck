@@ -1,12 +1,12 @@
 import re
 
-src = open("/Users/bhavishyachaurasia/sales deck/index.html").read()
+src = open("/Users/bhavishyachaurasia/sales deck/jewellery/index.html").read()
 
 # --- Title ---
 src = src.replace("<title>ORALAB Client Deck", "<title>ORALAB Furniture Deck")
 
 # --- Slide 2: traditional-shoot photo (furniture; absolute /assets/ so it loads under /furniture/) ---
-src = src.replace('src="assets/shoot-jewellery.jpg" alt="Traditional studio photoshoot"',
+src = src.replace('src="/assets/shoot-jewellery.jpg" alt="Traditional studio photoshoot"',
                   'src="/assets/shoot-furniture.jpg" alt="Traditional furniture photoshoot"')
 
 # --- Slide 3: product carousel -> furniture placeholders ---
