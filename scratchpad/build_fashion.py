@@ -167,7 +167,7 @@ brands = [("Kameez", None), ("Shaurya Sanadhya", "/assets/fash-logo-shaurya.png"
 def brand_card(name, logo):
     inner = (f'<img src="{logo}" alt="{name}" style="max-height:72px;max-width:82%;width:auto;object-fit:contain;display:block">'
              if logo else
-             f'<span style="font-family:\'Bricolage Grotesque\',sans-serif;font-size:clamp(16px,1.9vw,24px);font-weight:600;color:#1a1a1a">{name}</span>')
+             f'<span style="font-family:\'Nunito\',sans-serif;font-size:clamp(16px,1.9vw,24px);font-weight:600;color:#1a1a1a">{name}</span>')
     return ('    <div class="card" style="text-align:center;padding:16px;flex:0 1 calc(33.333% - 16px);max-width:440px">\n'
             '      <div style="min-height:130px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:#F4F4F1;border:1px solid var(--border);padding:16px">'
             f'{inner}</div>\n'
