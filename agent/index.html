@@ -291,7 +291,7 @@ table.cmp{width:100%;border-collapse:collapse;flex:1;height:100%}
 /* === SLIDE 3 v2: pipeline (raw tiles &rarr; agent &rarr; outputs animated) === */
 .pipeline{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:clamp(18px,2.4vw,36px);width:100%;height:min(64vh,540px);max-height:100%;align-items:center}
 .pipeline .raws{display:flex;flex-direction:column;gap:12px;height:100%;justify-content:center;flex:0 0 auto}
-.pipeline .rtile{width:clamp(96px,10vw,140px);aspect-ratio:3/4;border-radius:12px;overflow:hidden;border:2px solid var(--rose);box-shadow:0 8px 24px rgba(232,78,126,.22),0 0 0 1px rgba(232,78,126,.25);position:relative;margin:0}
+.pipeline .rtile{width:clamp(140px,14vw,200px);aspect-ratio:3/4;border-radius:12px;overflow:hidden;border:2px solid var(--rose);box-shadow:0 8px 24px rgba(232,78,126,.22),0 0 0 1px rgba(232,78,126,.25);position:relative;margin:0}
 .pipeline .rtile img{width:100%;height:100%;object-fit:cover;display:block}
 .pipeline .rtile .rlab{position:absolute;bottom:6px;left:8px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(232,78,126,.9);border-radius:999px;padding:3px 8px;font-weight:600}
 
@@ -308,6 +308,23 @@ table.cmp{width:100%;border-collapse:collapse;flex:1;height:100%}
 
 .pipeline .outs.animated{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:10px;height:100%;min-width:0}
 .pipeline .outs.animated .out{border:1px dashed rgba(255,255,255,.14);background:var(--surface2);border-radius:12px;position:relative;overflow:hidden;aspect-ratio:auto;transition:border-color .3s ease,border-style .3s ease}
+.pipeline .outs.animated.cat-furniture{grid-template-columns:repeat(3,minmax(0,220px));grid-template-rows:repeat(2,minmax(0,220px));justify-content:center;align-content:center;gap:12px;height:100%;max-height:100%}
+.pipeline .outs.animated.cat-furniture .out{aspect-ratio:1/1;max-width:100%;max-height:100%}
+.pipeline .rtile.rtile-sq{aspect-ratio:1/1;width:clamp(170px,17vw,240px)}
+.pipeline .outs.animated.cat-fashion{grid-template-columns:repeat(3,minmax(0,180px));grid-template-rows:repeat(2,minmax(0,240px));justify-content:center;align-content:center;gap:12px;height:100%;max-height:100%}
+.pipeline .outs.animated.cat-jewellery{grid-template-columns:repeat(4,minmax(0,170px));grid-template-rows:repeat(2,minmax(0,170px));justify-content:center;align-content:center;gap:10px;height:100%;max-height:100%}
+.pipeline .outs.animated.cat-jewellery .out img{object-fit:cover;object-position:center}
+.pipeline .outs.animated.cat-furniture .out{aspect-ratio:auto}
+.pipeline .outs.animated.cat-furniture .out img{object-fit:cover;object-position:center}
+.pipeline .outs.animated.cat-fashion .out img{object-position:top}
+
+/* Lightbox nav (prev/next) */
+.lightbox .lbnav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:1px solid var(--border);color:var(--ink);width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease;z-index:2}
+.lightbox .lbnav:hover{background:rgba(255,255,255,.18)}
+.lightbox .lbnav svg{width:22px;height:22px}
+.lightbox .lbprev{left:24px}
+.lightbox .lbnext{right:24px}
+.lightbox .lbcount{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums}
 .pipeline .outs.animated .out img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transform:scale(.94);transition:opacity .35s ease,transform .35s ease}
 .pipeline .outs.animated .out .tag2{opacity:0;transition:opacity .35s ease .05s}
 .pipeline .outs.animated .out.filled{border-style:solid;border-color:var(--border)}
@@ -758,7 +775,14 @@ h2.headline.s6-hd{max-width:none;white-space:nowrap;text-wrap:nowrap}
 
 <!-- Full-screen lightbox for tapped tiles -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lbnav lbprev" id="lbPrev" type="button" aria-label="Previous image">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
   <img id="lbImg" src="" alt="">
+  <button class="lbnav lbnext" id="lbNext" type="button" aria-label="Next image">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+  <div class="lbcount" id="lbCount"></div>
   <button class="lbclose" id="lbClose" type="button" aria-label="Close preview">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
@@ -815,7 +839,6 @@ const CATEGORIES = {
   fashion: {
     raws: [
       { src: 'assets/fash-raw-saree.jpg', tag: 'Raw shot &middot; Saree' },
-      { src: 'assets/fash-raw-suit.jpg',  tag: 'Raw shot &middot; Suit'  },
     ],
     outs: [
       { src: 'assets/fash-out-saree-1.jpg', tag: 'Catalog &middot; Studio' },
@@ -824,40 +847,33 @@ const CATEGORIES = {
       { src: 'assets/fash-out-saree-4.jpg', tag: 'Lifestyle &middot; Garden' },
       { src: 'assets/fash-out-saree-5.jpg', tag: 'Catalog &middot; White' },
       { src: 'assets/fash-out-saree-6.jpg', tag: 'Lifestyle &middot; Street' },
-      { src: 'assets/fash-out-suit-1.jpg',  tag: 'Catalog &middot; Editorial' },
-      { src: 'assets/fash-out-suit-2.jpg',  tag: 'Lifestyle &middot; Terrace' },
     ],
   },
   furniture: {
     raws: [
-      { src: 'assets/furn-sofa-raw.jpg',  tag: 'Raw shot &middot; Sofa'  },
-      { src: 'assets/furn-chair-raw.jpg', tag: 'Raw shot &middot; Chair' },
+      { src: 'assets/sofa-raw.webp', tag: 'Raw shot &middot; Sofa' },
     ],
     outs: [
-      { src: 'assets/furn-sofa-01.jpg',  tag: 'Catalog &middot; White' },
-      { src: 'assets/furn-sofa-02.jpg',  tag: 'Lifestyle &middot; Living' },
-      { src: 'assets/furn-sofa-03.jpg',  tag: 'Editorial' },
-      { src: 'assets/furn-sofa-04.jpg',  tag: 'Lifestyle &middot; Loft' },
-      { src: 'assets/furn-sofa-05.jpg',  tag: 'Catalog &middot; Studio' },
-      { src: 'assets/furn-sofa-06.jpg',  tag: 'Lifestyle &middot; Warm' },
-      { src: 'assets/furn-chair-01.jpg', tag: 'Catalog &middot; Chair' },
-      { src: 'assets/furn-chair-02.jpg', tag: 'Lifestyle &middot; Chair' },
+      { src: 'assets/sofa-out-5.webp', tag: 'Catalog &middot; Front' },
+      { src: 'assets/sofa-out-1.webp', tag: 'Catalog &middot; 3/4 Angle' },
+      { src: 'assets/sofa-out-2.webp', tag: 'Detail &middot; Stitching' },
+      { src: 'assets/sofa-out-3.webp', tag: 'Lifestyle &middot; Penthouse' },
+      { src: 'assets/sofa-out-4.webp', tag: 'Lifestyle &middot; MCM Lounge' },
     ],
   },
   jewellery: {
     raws: [
-      { src: 'assets/jwl-necklace-raw.jpg', tag: 'Raw shot &middot; Necklace' },
-      { src: 'assets/jwl-ring-raw.jpg',     tag: 'Raw shot &middot; Ring' },
+      { src: 'assets/ring-raw.webp', tag: 'Raw shot &middot; Ring' },
     ],
     outs: [
-      { src: 'assets/jwl-necklace-01.jpg', tag: 'Catalog &middot; White' },
-      { src: 'assets/jwl-necklace-02.jpg', tag: 'On-model &middot; Silk' },
-      { src: 'assets/jwl-necklace-03.jpg', tag: 'On-model &middot; Neutral' },
-      { src: 'assets/jwl-necklace-04.jpg', tag: 'Editorial' },
-      { src: 'assets/jwl-necklace-05.jpg', tag: 'Catalog &middot; Marble' },
-      { src: 'assets/jwl-ring-01.jpg',     tag: 'Catalog &middot; Studio' },
-      { src: 'assets/jwl-ring-02.jpg',     tag: 'On-hand' },
-      { src: 'assets/jwl-ring-03.jpg',     tag: 'Editorial' },
+      { src: 'assets/ring-out-1.webp', tag: 'Catalog &middot; Front' },
+      { src: 'assets/ring-out-2.webp', tag: 'Catalog &middot; 3/4' },
+      { src: 'assets/ring-out-3.webp', tag: 'Catalog &middot; Side' },
+      { src: 'assets/ring-out-4.webp', tag: 'Catalog &middot; Closeup' },
+      { src: 'assets/ring-out-5.webp', tag: 'Lifestyle &middot; Hand' },
+      { src: 'assets/ring-out-6.webp', tag: 'Lifestyle &middot; Near face' },
+      { src: 'assets/ring-out-7.webp', tag: 'Lifestyle &middot; Evening' },
+      { src: 'assets/ring-out-8.webp', tag: 'Lifestyle &middot; Silk + Flowers' },
     ],
   },
 };
@@ -879,12 +895,17 @@ function shortRawTag(fullTag) {
 function renderCategory() {
   if (runTimer) { clearInterval(runTimer); runTimer = null; }
   const c = CATEGORIES[curCat];
+  const sqRaw = (curCat === 'furniture' || curCat === 'jewellery') ? ' rtile-sq' : '';
   rawTiles.innerHTML = c.raws.map(r =>
-    '<figure class="rtile"><img src="' + r.src + '" alt=""><span class="rlab">' + shortRawTag(r.tag) + '</span></figure>'
+    '<figure class="rtile' + sqRaw + '"><img src="' + r.src + '" alt=""><span class="rlab">' + shortRawTag(r.tag) + '</span></figure>'
   ).join('');
   outsGrid.innerHTML = c.outs.map(o =>
     '<figure class="out"><img data-src="' + o.src + '" alt=""><span class="tag2">' + o.tag + '</span></figure>'
   ).join('');
+  const n = c.outs.length;
+  const cols = n <= 4 ? 2 : (n <= 6 ? 3 : 4);
+  outsGrid.style.gridTemplateColumns = 'repeat(' + cols + ', 1fr)';
+  outsGrid.className = 'outs animated cat-' + curCat;
   runCta.disabled = false;
   runLbl.textContent = 'Run';
   runStatus.textContent = '';
@@ -933,25 +954,62 @@ renderCategory();
 /* === Lightbox: tap raw/output tiles to open full-screen === */
 const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lbImg');
-function openLightbox(src) {
-  if (!src) return;
-  lbImg.src = src;
+const lbCount = document.getElementById('lbCount');
+let lbList = [];      // array of srcs for the current gallery
+let lbIdx = 0;
+function updateLbCount() {
+  if (!lbList.length) { lbCount.textContent = ''; return; }
+  lbCount.textContent = (lbIdx + 1).toString().padStart(2, '0') + ' / ' + lbList.length.toString().padStart(2, '0');
+}
+function openLightbox(list, idx) {
+  if (!list || !list.length) return;
+  lbList = list;
+  lbIdx = Math.max(0, Math.min(list.length - 1, idx));
+  lbImg.src = lbList[lbIdx];
   lb.classList.add('on');
   lb.setAttribute('aria-hidden', 'false');
+  updateLbCount();
 }
 function closeLightbox() {
   lb.classList.remove('on');
   lb.setAttribute('aria-hidden', 'true');
   lbImg.removeAttribute('src');
+  lbList = [];
+  lbCount.textContent = '';
+}
+function lbStep(delta) {
+  if (!lbList.length) return;
+  lbIdx = (lbIdx + delta + lbList.length) % lbList.length;
+  lbImg.src = lbList[lbIdx];
+  updateLbCount();
 }
 lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
 document.getElementById('lbClose').addEventListener('click', closeLightbox);
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('on')) { closeLightbox(); e.stopPropagation(); } });
+document.getElementById('lbPrev').addEventListener('click', e => { e.stopPropagation(); lbStep(-1); });
+document.getElementById('lbNext').addEventListener('click', e => { e.stopPropagation(); lbStep(1); });
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('on')) return;
+  if (e.key === 'Escape')     { closeLightbox(); e.stopPropagation(); }
+  else if (e.key === 'ArrowRight') { lbStep(1);  e.stopPropagation(); }
+  else if (e.key === 'ArrowLeft')  { lbStep(-1); e.stopPropagation(); }
+});
 
 document.querySelector('.pipeline').addEventListener('click', e => {
   const rt = e.target.closest('.rtile');
-  if (rt) { const img = rt.querySelector('img'); if (img) openLightbox(img.src); return; }
+  if (rt) {
+    const img = rt.querySelector('img');
+    if (!img) return;
+    const raws = [...rawTiles.querySelectorAll('img')].map(i => i.src);
+    openLightbox(raws, raws.indexOf(img.src));
+    return;
+  }
   const out = e.target.closest('.out.filled');
-  if (out) { const img = out.querySelector('img'); if (img && img.src) openLightbox(img.src); return; }
+  if (out) {
+    const img = out.querySelector('img');
+    if (!img || !img.src) return;
+    const outs = [...outsGrid.querySelectorAll('.out.filled img')].map(i => i.src).filter(Boolean);
+    openLightbox(outs, outs.indexOf(img.src));
+    return;
+  }
 });
 </script>
